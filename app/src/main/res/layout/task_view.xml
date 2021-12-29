@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp">
 
     <TextView
         android:id="@+id/titleOutput"
@@ -38,11 +40,11 @@
         android:layout_height="wrap_content"
         android:text="my description"
         android:textSize="20dp"
-        android:lines="6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleOutput" />
 
     <TextView
+        android:id="@+id/timeOutput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
