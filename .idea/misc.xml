@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/round_corner_card.xml" value="0.124" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/round_corner_card_filled_in.xml" value="0.1245" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/rounded_corners.xml" value="0.2703125" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/font/poppins.xml" value="0.284375" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/activity_new_task.xml" value="0.264" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_activity_city.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_view.xml" value="0.536" />
       </map>
     </option>
   </component>

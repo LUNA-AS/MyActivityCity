@@ -1,9 +1,28 @@
 package com.example.myactivitycity.Models;
 
-public class TodoTask extends Task {
+import io.realm.RealmObject;
+
+public class TodoTask extends RealmObject {
     long timeCreated;
     boolean isComplete;
     String deadline;
+    String title, description;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public long getTimeCreated() {
         return timeCreated;
