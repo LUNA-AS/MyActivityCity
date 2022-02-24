@@ -22,34 +22,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FloatingActionButton addBtn = findViewById(R.id.addTaskBtn);
-
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, NewTask.class));
-            }
-        });
-
-        Realm.init(getApplicationContext());
-        Realm realm = Realm.getDefaultInstance();
-
-        RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        MyAdapter myAdapter = new MyAdapter(getApplicationContext(), tasks);
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-        tasks.addChangeListener(new RealmChangeListener<RealmResults<TodoTask>>() {
-            @Override
-            public void onChange(RealmResults<TodoTask> tasks) {
-                recyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        myAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
-        });
     }
 }
