@@ -36,14 +36,19 @@ public class MainActivity extends AppCompatActivity {
 
         RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        MyAdapter myAdapter = new MyAdapter(getApplicationContext(),tasks);
+        MyAdapter myAdapter = new MyAdapter(getApplicationContext(), tasks);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         tasks.addChangeListener(new RealmChangeListener<RealmResults<TodoTask>>() {
             @Override
             public void onChange(RealmResults<TodoTask> tasks) {
-                myAdapter.notifyDataSetChanged();
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        myAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
     }
