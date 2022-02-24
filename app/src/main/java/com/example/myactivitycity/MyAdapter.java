@@ -2,26 +2,17 @@ package com.example.myactivitycity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.myactivitycity.Models.Task;
 import com.example.myactivitycity.Models.TodoTask;
-
 import java.text.DateFormat;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 
