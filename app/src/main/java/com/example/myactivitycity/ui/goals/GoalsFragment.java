@@ -1,4 +1,4 @@
-package com.example.myactivitycity.ui.gallery;
+package com.example.myactivitycity.ui.goals;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myactivitycity.databinding.FragmentGalleryBinding;
+import com.example.myactivitycity.databinding.FragmentGoalsBinding;
 
-public class GalleryFragment extends Fragment {
+public class GoalsFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentGoalsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        GoalsViewModel goalsViewModel =
+                new ViewModelProvider(this).get(GoalsViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentGoalsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textGoals;
+        goalsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

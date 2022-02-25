@@ -1,4 +1,4 @@
-package com.example.myactivitycity.ui.slideshow;
+package com.example.myactivitycity.ui.message;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myactivitycity.databinding.FragmentSlideshowBinding;
+import com.example.myactivitycity.databinding.FragmentMessageBinding;
 
-public class SlideshowFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentMessageBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        MessageViewModel messageViewModel =
+                new ViewModelProvider(this).get(MessageViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentMessageBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        messageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
