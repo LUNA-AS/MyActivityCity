@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myactivitycity.Models.TodoTask;
+
 import java.text.DateFormat;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -28,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_view, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item_view, parent, false);
         return new MyViewHolder(v);
     }
 
@@ -38,25 +43,60 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.titleOutput.setText(tasks.get(position).getTitle());
         String formattedTime = DateFormat.getDateTimeInstance().format(tasks.get(position).getTimeCreated());
         holder.timeOutput.setText(formattedTime);
-        if(tasks.get(position).isComplete()){
+        if (tasks.get(position).isComplete()) {
             holder.checkBox.setChecked(true);
             holder.card.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+        } else {
+            holder.checkBox.setChecked(false);
+            holder.card.setBackgroundResource(R.drawable.round_corner_card);
         }
 
+        /*
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                if (b) {
-                    holder.card.setBackgroundResource(R.drawable.round_corner_card_filled_in);
-                    tasks.get(position).setComplete(true);
-                    realm.commitTransaction();
-                } else {
-                    holder.card.setBackgroundResource(R.drawable.round_corner_card);
-                    tasks.get(position).setComplete(false);
+                if (b != tasks.get(position).isComplete()) {
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    tasks.get(position).setComplete(b);
                     realm.commitTransaction();
                 }
+            }
+        });
+        */
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.checkBox.isChecked()){
+                    if(!tasks.get(position).isComplete()){
+                        Realm realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        tasks.get(position).setComplete(true);
+                        realm.commitTransaction();
+                    }
+                }else{
+                    if(tasks.get(position).isComplete()){
+                        Realm realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        tasks.get(position).setComplete(false);
+                        realm.commitTransaction();
+                    }
+                }
+            }
+        });
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Realm.init(context);
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                if (tasks.get(position) != null) {
+                    tasks.get(position).deleteFromRealm();
+                    System.out.println("delete called");
+                }
+                realm.commitTransaction();
+                notifyDataSetChanged();
             }
         });
     }
@@ -73,6 +113,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView timeOutput;
         CheckBox checkBox;
         FrameLayout card;
+        ImageButton deleteButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +123,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             timeOutput = itemView.findViewById(R.id.timeOutput);
             checkBox = itemView.findViewById(R.id.taskCheckBox);
             card = itemView.findViewById(R.id.taskCard);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
 }
