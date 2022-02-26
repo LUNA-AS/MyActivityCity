@@ -8,6 +8,7 @@
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/round_corner_card.xml" value="0.124" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/round_corner_card_filled_in.xml" value="0.1245" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/rounded_corners.xml" value="0.2703125" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/yellow_button.xml" value="0.1" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/font/poppins.xml" value="0.284375" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/activity_navigation_drawer.xml" value="0.11354166666666667" />
@@ -19,7 +20,7 @@
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_gallery.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_goals.xml" value="0.264" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_home.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_message.xml" value="0.136" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_message.xml" value="0.2" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_slideshow.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/menu_content.xml" value="0.2" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/menu_header.xml" value="0.25416666666666665" />
@@ -28,7 +29,7 @@
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_view.xml" value="0.536" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/activity_main_drawer.xml" value="0.4" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/menu.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/navigation_drawer.xml" value="0.4" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/navigation_drawer.xml" value="0.264" />
       </map>
     </option>
   </component>
