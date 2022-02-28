@@ -42,14 +42,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
+        <Button
             android:id="@+id/imageButton"
             android:layout_width="130dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:background="@color/darker_yellow"
-            android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
+            android:textSize="20sp"
+            android:text="@string/previous" />
 
         <RelativeLayout
             android:id="@+id/messageViewLayout"
@@ -82,14 +83,15 @@
 
         </RelativeLayout>
 
-        <ImageButton
+        <Button
             android:id="@+id/imageButton2"
             android:layout_width="130dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:background="@color/darker_yellow"
             android:layout_weight="1"
-            android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            android:layout_marginEnd="5dp"
+            android:textSize="20sp"
+            android:text="@string/next" />
     </LinearLayout>
 
     <RelativeLayout
@@ -118,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/messageTextInput"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:text="Save" />
     </RelativeLayout>
 
