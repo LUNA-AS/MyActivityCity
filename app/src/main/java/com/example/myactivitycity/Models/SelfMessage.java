@@ -11,6 +11,9 @@ public class SelfMessage extends RealmObject {
         this.body = body;
         this.timeCreated = System.currentTimeMillis();
     }
+    public SelfMessage() {
+        this.timeCreated = System.currentTimeMillis();
+    }
 
     public String getBody(){
         return body;
@@ -18,5 +21,13 @@ public class SelfMessage extends RealmObject {
 
     public String getTimeCreated(){
         return DateFormat.getDateTimeInstance().format(timeCreated);
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setTimeCreated(Long timeCreated) {
+        this.timeCreated = timeCreated;
     }
 }

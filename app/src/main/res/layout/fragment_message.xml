@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBF7BD"
+
     tools:context=".ui.message.MessageFragment">
 
     <TextView
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/imageButton"
+            android:id="@+id/previousMessage"
             android:layout_width="130dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -55,9 +55,10 @@
         <RelativeLayout
             android:id="@+id/messageViewLayout"
             android:layout_margin="5dp"
-            android:background="@drawable/round_corner_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_card"
+            android:backgroundTint="#4BF2EA7E"
             android:layout_weight="1"
             android:padding="5dp">
 
@@ -65,26 +66,45 @@
                 android:id="@+id/messageDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="5dp"
                 android:text="date"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/messageBody"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="270dp"
+                android:layout_height="29dp"
                 android:layout_below="@+id/messageDate"
                 android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="15dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="-11dp"
-                android:text="aaaa" />
+                android:layout_marginTop="144dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="0dp"
+                android:text="aaaa"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round_corner_card"
+                android:backgroundTint="@color/bright_yellow"
+                android:padding="5dp"
+                android:text="0/0"
+                android:textSize="14dp" />
 
         </RelativeLayout>
 
         <Button
-            android:id="@+id/imageButton2"
+            android:id="@+id/nextMessage"
             android:layout_width="130dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -97,7 +117,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:padding="20dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/myMessagesTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,13 +135,45 @@
             android:padding="10dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/saveMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/messageTextInput"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:text="Save" />
+
+
+        <TextView
+            android:id="@+id/randomHint"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_above="@+id/messageTextInput"
+            android:layout_alignParentStart="true"
+
+            android:text="Hint here"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/refreshHint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/refreshHint"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/messageTextInput"
+            android:layout_alignParentEnd="true"
+
+            android:layout_weight="1"
+            android:backgroundTint="@color/darker_green"
+            android:src="@drawable/ic_baseline_refresh_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </RelativeLayout>
 
 

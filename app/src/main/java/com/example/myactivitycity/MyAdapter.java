@@ -51,19 +51,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.card.setBackgroundResource(R.drawable.round_corner_card);
         }
 
-        /*
-        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b != tasks.get(position).isComplete()) {
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
-                    tasks.get(position).setComplete(b);
-                    realm.commitTransaction();
-                }
-            }
-        });
-        */
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
