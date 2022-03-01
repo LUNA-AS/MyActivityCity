@@ -6,19 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
 import com.example.myactivitycity.Models.Goal;
 import com.example.myactivitycity.Models.TodoTask;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import io.realm.RealmResults;
 
 public class GoalsAdapter extends BaseExpandableListAdapter {
 
     Context context;
     ArrayList<Goal> goals;
-    ArrayList<HashMap<Goal, RealmResults<TodoTask>>> goalsWithContents;
+    ArrayList<HashMap<String, RealmResults<TodoTask>>> goalsWithContents;
 
-    public GoalsAdapter(Context context, ArrayList<Goal> goals, ArrayList<HashMap<Goal, RealmResults<TodoTask>>> goalsWithContents) {
+    public GoalsAdapter(Context context, ArrayList<Goal> goals, ArrayList<HashMap<String, RealmResults<TodoTask>>> goalsWithContents) {
         this.context = context;
         this.goals = goals;
         this.goalsWithContents = goalsWithContents;
@@ -31,7 +34,15 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        return goalsWithContents.get(i).get(goals.get(i).getName()).size();
+        int count = 0;
+        try {
+            count = goalsWithContents.get(i).get("default").size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            count = 0;
+        }
+        System.out.println("Count of children: " + goalsWithContents.get(i).get(goals.get(i).getName()));
+        return count;
     }
 
     @Override
@@ -74,17 +85,18 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        TodoTask task = goalsWithContents.get(i).get(goals.get(i)).get(i1);
+        TodoTask task = goalsWithContents.get(i).get(goals.get(i).getName()).get(i1);
         String taskName = task.getTitle();
+        System.out.println("found task with title: " + taskName);
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.goal_task_item, null);
         }
         TextView taskNameView = view.findViewById(R.id.childTask);
         taskNameView.setText(taskName);
-        if(task.isComplete()){
+        if (task.isComplete()) {
             taskNameView.setBackgroundResource(R.drawable.round_corner_card);
-        }else{
+        } else {
             taskNameView.setBackgroundResource(R.drawable.round_corner_card_filled_in);
         }
 

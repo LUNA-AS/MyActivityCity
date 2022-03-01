@@ -28,8 +28,8 @@ import io.realm.RealmResults;
 public class GoalsFragment extends Fragment {
 
     RealmResults<Goal> goals;
-    HashMap<Goal, RealmResults<TodoTask>> goalContents;
-    ArrayList<HashMap<Goal, RealmResults<TodoTask>>> hashMapArrayList;
+    HashMap<String, RealmResults<TodoTask>> goalContents;
+    ArrayList<HashMap<String, RealmResults<TodoTask>>> hashMapArrayList;
     RealmResults<TodoTask> tasks;
     GoalsAdapter goalsAdapter;
     private FragmentGoalsBinding binding;
@@ -55,11 +55,11 @@ public class GoalsFragment extends Fragment {
             for (Goal goal : goals) {
                 Realm.init(getContext());
                 tasks = realm.where(TodoTask.class).equalTo("title", goal.getName()).findAll();
-                goalContents.put(goal, tasks);
+                goalContents.put(goal.getName(), tasks);
                 hashMapArrayList.add(goalContents);
                 realm.close();
                 ArrayList<Goal> goalsArrayList = new ArrayList<>();
-                for(Goal g : goals){
+                for (Goal g : goals) {
                     goalsArrayList.add(g);
                 }
                 goalsAdapter = new GoalsAdapter(getContext(), goalsArrayList, hashMapArrayList);
@@ -68,13 +68,15 @@ public class GoalsFragment extends Fragment {
             Goal goal = new Goal();
             Realm.init(getContext());
             RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
-            goalContents.put(goal, tasks);
-            hashMapArrayList.add(goalContents);
+            System.out.println("Found " + tasks.size() + " tasks under default");
+            goalContents.put(goal.getName(), tasks);
             System.out.println("Put to hash: " + goal + " " + tasks);
             realm.close();
             ArrayList<Goal> defaultGoalList = new ArrayList<>();
             defaultGoalList.add(goal);
+            hashMapArrayList.add(goalContents);
             goalsAdapter = new GoalsAdapter(getContext(), defaultGoalList, hashMapArrayList);
+            goalsAdapter.notifyDataSetChanged();
         }
         ExpandableListView expandableListView = root.findViewById(R.id.goalsExpandableList);
 
@@ -92,6 +94,7 @@ public class GoalsFragment extends Fragment {
                 });
             }
         });
+
 
         return root;
     }
