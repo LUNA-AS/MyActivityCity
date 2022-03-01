@@ -15,10 +15,10 @@ import io.realm.RealmResults;
 public class GoalsAdapter extends BaseExpandableListAdapter {
 
     Context context;
-    RealmResults<Goal> goals;
+    ArrayList<Goal> goals;
     ArrayList<HashMap<Goal, RealmResults<TodoTask>>> goalsWithContents;
 
-    public GoalsAdapter(Context context, RealmResults<Goal> goals, ArrayList<HashMap<Goal, RealmResults<TodoTask>>> goalsWithContents) {
+    public GoalsAdapter(Context context, ArrayList<Goal> goals, ArrayList<HashMap<Goal, RealmResults<TodoTask>>> goalsWithContents) {
         this.context = context;
         this.goals = goals;
         this.goalsWithContents = goalsWithContents;

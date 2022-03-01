@@ -12,6 +12,7 @@ public class Goal extends RealmObject {
         this.totalTasks = 0;
     }
     public Goal() {
+        name = "default";
         this.completedTasks = 0;
         this.totalTasks = 0;
     }

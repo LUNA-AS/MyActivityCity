@@ -31,6 +31,7 @@ public class GoalsFragment extends Fragment {
     HashMap<Goal, RealmResults<TodoTask>> goalContents;
     ArrayList<HashMap<Goal, RealmResults<TodoTask>>> hashMapArrayList;
     RealmResults<TodoTask> tasks;
+    GoalsAdapter goalsAdapter;
     private FragmentGoalsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,23 +54,30 @@ public class GoalsFragment extends Fragment {
         if (goals.size() > 0) {
             for (Goal goal : goals) {
                 Realm.init(getContext());
-                //realm.beginTransaction();
                 tasks = realm.where(TodoTask.class).equalTo("title", goal.getName()).findAll();
                 goalContents.put(goal, tasks);
                 hashMapArrayList.add(goalContents);
                 realm.close();
+                ArrayList<Goal> goalsArrayList = new ArrayList<>();
+                for(Goal g : goals){
+                    goalsArrayList.add(g);
+                }
+                goalsAdapter = new GoalsAdapter(getContext(), goalsArrayList, hashMapArrayList);
             }
         } else {
             Goal goal = new Goal();
             Realm.init(getContext());
-            //realm.beginTransaction();
             RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
-            //realm.commitTransaction();
             goalContents.put(goal, tasks);
+            hashMapArrayList.add(goalContents);
+            System.out.println("Put to hash: " + goal + " " + tasks);
             realm.close();
+            ArrayList<Goal> defaultGoalList = new ArrayList<>();
+            defaultGoalList.add(goal);
+            goalsAdapter = new GoalsAdapter(getContext(), defaultGoalList, hashMapArrayList);
         }
         ExpandableListView expandableListView = root.findViewById(R.id.goalsExpandableList);
-        GoalsAdapter goalsAdapter = new GoalsAdapter(getContext(), goals, hashMapArrayList);
+
         expandableListView.setAdapter(goalsAdapter);
         goalsAdapter.notifyDataSetChanged();
 
