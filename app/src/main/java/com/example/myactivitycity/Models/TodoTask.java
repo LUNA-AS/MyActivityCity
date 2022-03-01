@@ -6,7 +6,11 @@ public class TodoTask extends RealmObject {
     long timeCreated;
     boolean isComplete;
     String deadline;
-    String title, description;
+    String title, description, goal;
+
+    public TodoTask() {
+        this.goal = "default";
+    }
 
     public String getTitle() {
         return title;
@@ -47,4 +51,13 @@ public class TodoTask extends RealmObject {
     public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
+    }
 }
+

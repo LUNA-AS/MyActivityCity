@@ -173,7 +173,7 @@
 
             android:layout_weight="1"
             android:backgroundTint="@color/darker_green"
-            android:src="@drawable/ic_baseline_refresh_24"
+            android:src="@drawable/ic_baseline_lightbulb_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

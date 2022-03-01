@@ -58,6 +58,7 @@ public class MessageFragment extends Fragment {
                         messageInput.setText("");
                     } catch (Exception e) {
                         System.out.println("Failed to save message object in realm");
+                        e.printStackTrace();
                         messageInput.setError("Error saving the message. Please try again.");
                     }
                 }
@@ -77,14 +78,6 @@ public class MessageFragment extends Fragment {
         final int[] index = {0};
 
         changeCurrentMessage(index[0],messages,messageDate,messageBody,indicator);
-
-        messages.addChangeListener(new RealmChangeListener<RealmResults<SelfMessage>>() {
-            @Override
-            public void onChange(RealmResults<SelfMessage> selfMessages) {
-                changeCurrentMessage(index[0],messages,messageDate,messageBody,indicator);
-            }
-        });
-
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +112,13 @@ public class MessageFragment extends Fragment {
             }
         });
 
+        messages.addChangeListener(new RealmChangeListener<RealmResults<SelfMessage>>() {
+            @Override
+            public void onChange(RealmResults<SelfMessage> selfMessages) {
+                changeCurrentMessage(index[0],messages,messageDate,messageBody,indicator);
+            }
+        });
+
         return root;
     }
 
@@ -137,9 +137,6 @@ public class MessageFragment extends Fragment {
             body.setText(messages.get(index).getBody());
             indicator.setText(index +1 + "/" + messages.size());
         }
-        body.setText(messages.get(index).getBody());
-        date.setText(messages.get(index).getTimeCreated());
-        indicator.setText(index +1 + "/" + messages.size());
     }
     private void changeHint(TextView textView){
         String[] hints = {
