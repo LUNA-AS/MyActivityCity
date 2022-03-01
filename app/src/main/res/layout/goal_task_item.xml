@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="2dp">
+<FrameLayout
+    android:id="@+id/childHolder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="25dp">
 
     <TextView
         android:id="@+id/childTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:text="task"
-        android:layout_marginLeft="30dp"
-        />
+        android:padding="5dp"
+        android:text="task"/>
+
+</FrameLayout>
 
 </LinearLayout>

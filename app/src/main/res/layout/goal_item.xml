@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/darker_yellow"
     android:padding="10dp">
 
     <TextView
@@ -12,7 +13,6 @@
         android:text="Goal Name"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="@color/darker_green"
         android:textColor="@color/white"
         android:paddingLeft="?android:expandableListPreferredChildPaddingLeft"
 

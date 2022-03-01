@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myactivitycity.Models.Goal;
@@ -93,11 +95,12 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
             view = layoutInflater.inflate(R.layout.goal_task_item, null);
         }
         TextView taskNameView = view.findViewById(R.id.childTask);
+        FrameLayout holder = view.findViewById(R.id.childHolder);
         taskNameView.setText(taskName);
-        if (task.isComplete()) {
-            taskNameView.setBackgroundResource(R.drawable.round_corner_card);
+        if (!task.isComplete()) {
+            holder.setBackgroundResource(R.drawable.round_corner_card);
         } else {
-            taskNameView.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+            holder.setBackgroundResource(R.drawable.round_corner_card_filled_in);
         }
 
         return view;
