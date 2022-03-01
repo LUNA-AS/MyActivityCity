@@ -11,9 +11,10 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="goals">Goals</string>
+    <string name="self_message">Message to Self</string>
     <string name="message_to_self">Write something to keep you going!</string>
     <string name="previous"><![CDATA[<]]></string>
     <string name="next"><![CDATA[>]]></string>
+    <string name="schedule">Schedule</string>
 </resources>
