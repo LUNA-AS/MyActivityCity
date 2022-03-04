@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myactivitycity.GoalsAdapter;
+import com.example.myactivitycity.adapters.GoalsAdapter;
 import com.example.myactivitycity.Models.Goal;
 import com.example.myactivitycity.Models.Task;
 import com.example.myactivitycity.Models.TodoTask;
@@ -26,7 +25,6 @@ import java.util.HashMap;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class GoalsFragment extends Fragment {
@@ -57,11 +55,12 @@ public class GoalsFragment extends Fragment {
         ArrayList<Task> unclassified = new ArrayList<>();
         ArrayList<Goal> goalsArrayList = new ArrayList<>();
 
-        goalsArrayList.add(new Goal("default"));
         tasks = realm.where(TodoTask.class).equalTo("goal", "default").findAll();
-        goalContents.put("default", tasks);
-        hashMapArrayList.add(goalContents);
-
+        if (tasks.size() > 0) {
+            goalsArrayList.add(new Goal("default"));
+            goalContents.put("default", tasks);
+            hashMapArrayList.add(goalContents);
+        }
         if (goals.size() > 0) {
             for (Goal goal : goals) {
                 Realm.init(getContext());

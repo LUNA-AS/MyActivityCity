@@ -10,13 +10,19 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.myactivitycity.Models.Goal;
 import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
+import com.example.myactivitycity.adapters.GoalsSpinnerAdapter;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class NewTaskActivity extends AppCompatActivity {
 
@@ -43,6 +49,23 @@ public class NewTaskActivity extends AppCompatActivity {
         timeCheckbox.setEnabled(false);
         datePicker.setMinDate(System.currentTimeMillis() - 1000);
 
+        // Fill in spinner
+        ArrayList<Goal> goals = new ArrayList<>();
+
+        Realm.init(this);
+        Realm realm1 = Realm.getDefaultInstance();
+
+        RealmResults<Goal> realmGoals = realm1.where(Goal.class).findAll();
+        for (Goal g : realmGoals) {
+            goals.add(g);
+        }
+        if (goals.size() < 1) {
+            goals.add(new Goal("default"));
+        }
+        Spinner goalsSpinner = (Spinner) findViewById(R.id.goalsSpinner);
+        GoalsSpinnerAdapter spinnerAdapter = new GoalsSpinnerAdapter(this, R.layout.goal_spinner_item, goals);
+        goalsSpinner.setAdapter(spinnerAdapter);
+
 
         dateCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -50,7 +73,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 datePicker.setEnabled(b);
                 deadlineRadioButton.setEnabled(b);
                 sceduleRadioButton.setEnabled(b);
-                if(!b){
+                if (!b) {
                     timeCheckbox.setChecked(false);
                 }
                 timeCheckbox.setEnabled(b);
@@ -74,38 +97,41 @@ public class NewTaskActivity extends AppCompatActivity {
                 String description = descriptionInput.getText().toString();
                 Long createdTime = System.currentTimeMillis();
 
-                if(!title.equals("title")  && !title.equals("")){
+                if (!title.equals("title") && !title.equals("")) {
                     boolean success = true;
                     realm.beginTransaction();
                     TodoTask task = realm.createObject(TodoTask.class);
                     task.setTitle(title);
                     task.setDescription(description);
                     task.setTimeCreated(createdTime);
-                    if(dateCheckbox.isChecked()){
-                        if(deadlineRadioButton.isChecked()){
-                            task.setDeadline(datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+"/"+datePicker.getYear());
-                        }else if(sceduleRadioButton.isChecked()){
-                            task.setScheduledDate(datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+"/"+datePicker.getYear());
-                        }else{
+                    Goal selectedGoal = (Goal) goalsSpinner.getSelectedItem();
+                    task.setGoal(selectedGoal.getName());
+                    if (dateCheckbox.isChecked()) {
+                        if (deadlineRadioButton.isChecked()) {
+                            task.setDeadline(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
+                        } else if (sceduleRadioButton.isChecked()) {
+                            task.setScheduledDate(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
+                        } else {
                             deadlineRadioButton.requestFocus();
                             sceduleRadioButton.requestFocus();
                             success = false;
                         }
                     }
-                    if(success){
+                    if (success) {
                         realm.commitTransaction();
-                        Toast.makeText(getApplicationContext(),"Added task", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Added task", Toast.LENGTH_SHORT).show();
                         finish();
-                    }else{
+                    } else {
                         realm.cancelTransaction();
                     }
 
-                }else{
+                } else {
                     titleInput.requestFocus();
                     titleInput.setError("Title cannot be empty");
-                    Toast.makeText(NewTaskActivity.this,"Invalid title",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewTaskActivity.this, "Invalid title", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.myactivitycity;
+package com.example.myactivitycity.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.myactivitycity.Models.Goal;
 import com.example.myactivitycity.Models.TodoTask;
+import com.example.myactivitycity.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

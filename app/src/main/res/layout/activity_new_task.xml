@@ -68,13 +68,13 @@
             app:layout_constraintTop_toBottomOf="@+id/taskTimePicker" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/goalsSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_corners"
             android:contentDescription="Goal"
-            android:spinnerMode="dropdown"
+            android:spinnerMode="dialog"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             tools:layout_editor_absoluteX="10dp" />
 
@@ -103,7 +103,7 @@
             android:textColor="#505050"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/goalsSpinner" />
 
         <DatePicker
             android:id="@+id/taskDatePicker"
