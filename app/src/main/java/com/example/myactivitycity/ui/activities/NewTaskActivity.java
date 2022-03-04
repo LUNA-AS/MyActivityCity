@@ -26,9 +26,9 @@ public class NewTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_task);
 
         // Get UI Elements
-        EditText titleInput = findViewById(R.id.titleInput);
-        EditText descriptionInput = findViewById(R.id.descriptionInput);
-        Button saveBtn = findViewById(R.id.saveTask);
+        EditText titleInput = findViewById(R.id.goalTitleInput);
+        EditText descriptionInput = findViewById(R.id.goalDescriptionInput);
+        Button saveBtn = findViewById(R.id.saveGoal);
         CheckBox dateCheckbox = findViewById(R.id.scheduleCheckbox);
         CheckBox timeCheckbox = findViewById(R.id.addTimeCheckbox);
         RadioButton deadlineRadioButton = findViewById(R.id.deadlineRadioButton);

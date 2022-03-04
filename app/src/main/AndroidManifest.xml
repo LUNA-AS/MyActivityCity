@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyActivityCity">
         <activity
-            android:name=".CreateGoalActivity"
+            android:name=".ui.activities.CreateGoalActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.NewTaskActivity"

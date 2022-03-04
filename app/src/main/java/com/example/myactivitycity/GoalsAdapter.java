@@ -43,7 +43,7 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
             e.printStackTrace();
             count = 0;
         }
-        System.out.println("Count of children: " + goalsWithContents.get(i).get(goals.get(i).getName()));
+        System.out.println("Count of children: " + count);
         return count;
     }
 
@@ -74,34 +74,56 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-        String goal = goals.get(i).getName();
-        if (view == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.goal_item, null);
+        try {
+            String goal = goals.get(i).getName();
+            if (view == null) {
+                LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = layoutInflater.inflate(R.layout.goal_item, null);
+            }
+            TextView goalNameView = view.findViewById(R.id.parentGoal);
+            goalNameView.setText(goal);
+
+        } catch (Exception e) {
+            /*if (view == null) {
+                LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = layoutInflater.inflate(R.layout.goal_item, null);
+            }*/
+            view = new View(context);
+            e.printStackTrace();
         }
-        TextView goalNameView = view.findViewById(R.id.parentGoal);
-        goalNameView.setText(goal);
 
         return view;
     }
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        TodoTask task = goalsWithContents.get(i).get(goals.get(i).getName()).get(i1);
-        String taskName = task.getTitle();
-        System.out.println("found task with title: " + taskName);
-        if (view == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.goal_task_item, null);
+
+        try {
+            TodoTask task = goalsWithContents.get(i).get(goals.get(i).getName()).get(i1);
+            String taskName = task.getTitle();
+            System.out.println("found task with title: " + taskName);
+            if (view == null) {
+                LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = layoutInflater.inflate(R.layout.goal_task_item, null);
+            }
+            TextView taskNameView = view.findViewById(R.id.childTask);
+            FrameLayout holder = view.findViewById(R.id.childHolder);
+            taskNameView.setText(taskName);
+            if (!task.isComplete()) {
+                holder.setBackgroundResource(R.drawable.round_corner_card);
+            } else {
+                holder.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+            }
+        } catch (Exception e) {
+            System.out.println("tasks in selected goal could not be loaded");
+            if (view == null) {
+                LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = layoutInflater.inflate(R.layout.goal_task_item, null);
+            }
+            TextView taskNameView = view.findViewById(R.id.childTask);
+            taskNameView.setText("No tasks here yet...");
         }
-        TextView taskNameView = view.findViewById(R.id.childTask);
-        FrameLayout holder = view.findViewById(R.id.childHolder);
-        taskNameView.setText(taskName);
-        if (!task.isComplete()) {
-            holder.setBackgroundResource(R.drawable.round_corner_card);
-        } else {
-            holder.setBackgroundResource(R.drawable.round_corner_card_filled_in);
-        }
+
 
         return view;
     }

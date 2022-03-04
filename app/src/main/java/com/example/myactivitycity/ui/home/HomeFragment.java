@@ -1,5 +1,6 @@
 package com.example.myactivitycity.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.MyAdapter;
 import com.example.myactivitycity.R;
 import com.example.myactivitycity.databinding.FragmentHomeBinding;
+import com.example.myactivitycity.ui.activities.NewTaskActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -53,6 +56,14 @@ public class HomeFragment extends Fragment {
                         myAdapter.notifyDataSetChanged();
                     }
                 });
+            }
+        });
+
+        FloatingActionButton addTaskButton = root.findViewById(R.id.addTaskFloatingButton);
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), NewTaskActivity.class));
             }
         });
 

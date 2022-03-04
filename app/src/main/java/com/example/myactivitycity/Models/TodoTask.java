@@ -6,6 +6,7 @@ public class TodoTask extends RealmObject {
     long timeCreated;
     boolean isComplete;
     String deadline, deadlineTime, scheduledDate, scheduledTime;
+    String title, description, goal;
 
     public String getScheduledDate() {
         return scheduledDate;
@@ -31,10 +32,12 @@ public class TodoTask extends RealmObject {
         this.deadlineTime = deadlineTime;
     }
 
-    String title, description, goal;
-
     public TodoTask() {
         this.goal = "default";
+    }
+
+    public TodoTask(String title) {
+        this.title = title;
     }
 
     public String getTitle() {

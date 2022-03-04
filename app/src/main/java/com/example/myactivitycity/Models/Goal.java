@@ -3,7 +3,7 @@ package com.example.myactivitycity.Models;
 import io.realm.RealmObject;
 
 public class Goal extends RealmObject {
-    String name;
+    String name, description;
     int totalTasks, completedTasks;
 
     public Goal(String name) {
@@ -13,6 +13,7 @@ public class Goal extends RealmObject {
     }
     public Goal() {
         name = "default";
+        description = "";
         this.completedTasks = 0;
         this.totalTasks = 0;
     }
@@ -39,5 +40,13 @@ public class Goal extends RealmObject {
 
     public void setCompletedTasks(int completedTasks) {
         this.completedTasks = completedTasks;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
