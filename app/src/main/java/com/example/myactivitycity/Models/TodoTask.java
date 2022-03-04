@@ -5,7 +5,32 @@ import io.realm.RealmObject;
 public class TodoTask extends RealmObject {
     long timeCreated;
     boolean isComplete;
-    String deadline;
+    String deadline, deadlineTime, scheduledDate, scheduledTime;
+
+    public String getScheduledDate() {
+        return scheduledDate;
+    }
+
+    public void setScheduledDate(String scheduledDate) {
+        this.scheduledDate = scheduledDate;
+    }
+
+    public String getScheduledTime() {
+        return scheduledTime;
+    }
+
+    public void setScheduledTime(String scheduledTime) {
+        this.scheduledTime = scheduledTime;
+    }
+
+    public String getDeadlineTime() {
+        return deadlineTime;
+    }
+
+    public void setDeadlineTime(String deadlineTime) {
+        this.deadlineTime = deadlineTime;
+    }
+
     String title, description, goal;
 
     public TodoTask() {

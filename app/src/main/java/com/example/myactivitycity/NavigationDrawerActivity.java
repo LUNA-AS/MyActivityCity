@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.myactivitycity.ui.activities.NewTaskActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -32,7 +33,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         binding.appBarNavigationDrawer.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NavigationDrawerActivity.this, NewTask.class));
+                startActivity(new Intent(NavigationDrawerActivity.this, NewTaskActivity.class));
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
