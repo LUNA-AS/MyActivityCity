@@ -21,10 +21,10 @@ import io.realm.RealmResults;
 public class GoalsAdapter extends BaseExpandableListAdapter {
 
     Context context;
-    ArrayList<Goal> goals;
+    RealmResults<Goal> goals;
     ArrayList<HashMap<String, RealmResults<TodoTask>>> goalsWithContents;
 
-    public GoalsAdapter(Context context, ArrayList<Goal> goals, ArrayList<HashMap<String, RealmResults<TodoTask>>> goalsWithContents) {
+    public GoalsAdapter(Context context, RealmResults<Goal> goals, ArrayList<HashMap<String, RealmResults<TodoTask>>> goalsWithContents) {
         this.context = context;
         this.goals = goals;
         this.goalsWithContents = goalsWithContents;
@@ -39,12 +39,12 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int i) {
         int count = 0;
         try {
-            count = goalsWithContents.get(i).get("default").size();
+            count = goalsWithContents.get(i).get(goals.get(i)).size();
         } catch (Exception e) {
+            count = 1;
             e.printStackTrace();
-            count = 0;
+            System.out.println("Empty tasks list for goal: " + goals.get(i).getName());
         }
-        System.out.println("Count of children: " + count);
         return count;
     }
 
