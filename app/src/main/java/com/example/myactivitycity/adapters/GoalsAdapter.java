@@ -1,6 +1,9 @@
 package com.example.myactivitycity.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.myactivitycity.Models.Goal;
 import com.example.myactivitycity.Models.TodoTask;
@@ -37,14 +42,20 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        int count = 0;
-        try {
+        int count = 1;
+        /*try {
             count = goalsWithContents.get(i).get(goals.get(i)).size();
         } catch (Exception e) {
             count = 1;
             e.printStackTrace();
             System.out.println("Empty tasks list for goal: " + goals.get(i).getName());
+        }*/
+
+        count = goals.get(i).getTasks().size();
+        if (count < 1) {
+            count = 1;
         }
+
         return count;
     }
 
@@ -82,17 +93,18 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
                 view = layoutInflater.inflate(R.layout.goal_item, null);
             }
             TextView goalNameView = view.findViewById(R.id.parentGoal);
+            TextView completionText = view.findViewById(R.id.completionText);
+
             goalNameView.setText(goal);
+            completionText.setText(goals.get(i).getCompletionPercentage());
+            if(goals.get(i).getCompletionPercentageFloat()>50){
+                view.setBackgroundResource(R.color.bright_green);
+            }
 
         } catch (Exception e) {
-            /*if (view == null) {
-                LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = layoutInflater.inflate(R.layout.goal_item, null);
-            }*/
             view = new View(context);
             e.printStackTrace();
         }
-
         return view;
     }
 
@@ -100,7 +112,7 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
 
         try {
-            TodoTask task = goalsWithContents.get(i).get(goals.get(i).getName()).get(i1);
+            TodoTask task = goals.get(i).getTasks().get(i1);
             String taskName = task.getTitle();
             System.out.println("found task with title: " + taskName);
             if (view == null) {

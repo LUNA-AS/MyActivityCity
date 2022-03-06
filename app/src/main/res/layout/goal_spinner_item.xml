@@ -6,9 +6,9 @@
 
     <TextView
         android:id="@+id/spinnerGoalName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="Goal name"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
