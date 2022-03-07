@@ -34,6 +34,11 @@ public class TodoTask extends RealmObject {
 
     public TodoTask() {
         this.goal = "default";
+        this.scheduledDate = "";
+        this.deadline = "";
+        this.scheduledTime = "";
+        this.deadlineTime = "";
+        this.description = "";
     }
 
     public TodoTask(String title) {

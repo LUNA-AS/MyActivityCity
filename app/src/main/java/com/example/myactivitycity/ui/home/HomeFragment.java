@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myactivitycity.Models.TodoTask;
-import com.example.myactivitycity.adapters.MyAdapter;
+import com.example.myactivitycity.adapters.TasksAdapter;
 import com.example.myactivitycity.R;
 import com.example.myactivitycity.databinding.FragmentHomeBinding;
 import com.example.myactivitycity.ui.activities.NewTaskActivity;
@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
-        MyAdapter myAdapter = new MyAdapter(getContext(), tasks);
+        TasksAdapter myAdapter = new TasksAdapter(getContext(), tasks);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         myAdapter.notifyDataSetChanged();

@@ -19,7 +19,9 @@ import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 import com.example.myactivitycity.adapters.GoalsSpinnerAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -30,6 +32,8 @@ public class NewTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
 
         // Get UI Elements
         EditText titleInput = findViewById(R.id.goalTitleInput);
@@ -107,10 +111,14 @@ public class NewTaskActivity extends AppCompatActivity {
                     Goal selectedGoal = (Goal) goalsSpinner.getSelectedItem();
                     task.setGoal(selectedGoal.getName());
                     if (dateCheckbox.isChecked()) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+                        long mills = calendar.getTimeInMillis();
+                        String formattedDate = sdf.format(mills);
                         if (deadlineRadioButton.isChecked()) {
-                            task.setDeadline(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
+                            task.setDeadline(formattedDate);
                         } else if (sceduleRadioButton.isChecked()) {
-                            task.setScheduledDate(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
+                            task.setScheduledDate(formattedDate);
                         } else {
                             deadlineRadioButton.requestFocus();
                             sceduleRadioButton.requestFocus();

@@ -1,14 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.schedule.ScheduleFragment">
 
-    <TextView
-        android:id="@+id/scheduleText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            android:id="@+id/scheduleCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@+id/calendarToolbar"
+            android:layout_marginTop="9dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:compactCalendarBackgroundColor="@color/white"
+            app:compactCalendarCurrentDayBackgroundColor="@color/bright_yellow"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/darker_green"
+            app:compactCalendarMultiEventIndicatorColor="#fff"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextColor="@color/black"
+            app:compactCalendarTextSize="18sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/scheduleRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scheduleCalendarView"
+            android:layout_marginTop="10dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/scheduleFloatingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_baseline_add_24"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/calendarToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/previousMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/darker_green"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/calendarDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="5dp"
+                    android:text="Date here"
+                    android:textColor="@color/white"
+                    android:textSize="26dp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/nextMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/darker_green"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:tint="@color/white" />
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+    </RelativeLayout>
 
 </FrameLayout>

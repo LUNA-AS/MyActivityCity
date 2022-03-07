@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myactivitycity.adapters.GoalsAdapter;
 import com.example.myactivitycity.Models.Goal;
-import com.example.myactivitycity.Models.Task;
 import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 import com.example.myactivitycity.databinding.FragmentGoalsBinding;

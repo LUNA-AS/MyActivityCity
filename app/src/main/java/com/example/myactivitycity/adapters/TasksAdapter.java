@@ -21,11 +21,11 @@ import java.text.DateFormat;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder> {
     RealmResults<TodoTask> tasks;
     Context context;
 
-    public MyAdapter(Context context, RealmResults<TodoTask> tasksList) {
+    public TasksAdapter(Context context, RealmResults<TodoTask> tasksList) {
         tasks = tasksList;
         this.context = context;
     }

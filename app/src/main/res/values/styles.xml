@@ -4,4 +4,7 @@
     <style name="datePickerStyle">
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="calendarViewCustomStyle">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
