@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/taskCard"
-    android:background="@drawable/round_corner_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
@@ -19,15 +18,14 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
             android:text="my title"
             android:textSize="25dp"
             android:textStyle="italic" />
 
         <CheckBox
             android:id="@+id/taskCheckBox"
-            android:layout_width="39dp"
-            android:layout_height="44dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignEnd="@+id/descriptionOutput"
             android:layout_alignBottom="@+id/titleOutput"
             android:layout_alignParentTop="true"
@@ -54,16 +52,15 @@
 
         <ImageButton
             android:id="@+id/deleteButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/descriptionOutput"
             android:layout_alignTop="@+id/titleOutput"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="1dp"
             android:layout_toStartOf="@+id/taskCheckBox"
-            android:layout_toEndOf="@+id/titleOutput"
-            app:srcCompat="@drawable/ic_baseline_delete_24" />
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/ic_baseline_close_24" />
 
     </RelativeLayout>
 </FrameLayout>

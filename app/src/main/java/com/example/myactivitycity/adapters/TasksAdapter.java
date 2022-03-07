@@ -41,8 +41,15 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.descriptionOutput.setText(tasks.get(position).getDescription());
         holder.titleOutput.setText(tasks.get(position).getTitle());
-        String formattedTime = DateFormat.getDateTimeInstance().format(tasks.get(position).getTimeCreated());
-        holder.timeOutput.setText(formattedTime);
+
+        if(!tasks.get(position).getDeadline().equals("")){
+            holder.timeOutput.setText("Deadline: "+tasks.get(position).getDeadline());
+        }else if (!tasks.get(position).getScheduledDate().equals("")){
+            holder.timeOutput.setText("Scheduled: "+tasks.get(position).getScheduledDate());
+        }else{
+            String formattedTime = DateFormat.getDateTimeInstance().format(tasks.get(position).getTimeCreated());
+            holder.timeOutput.setText("Created on: "+formattedTime);
+        }
         if (tasks.get(position).isComplete()) {
             holder.checkBox.setChecked(true);
             holder.card.setBackgroundResource(R.drawable.round_corner_card_filled_in);

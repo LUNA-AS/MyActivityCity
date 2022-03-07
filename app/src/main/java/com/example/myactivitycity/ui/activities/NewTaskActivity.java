@@ -19,9 +19,11 @@ import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 import com.example.myactivitycity.adapters.GoalsSpinnerAdapter;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -42,15 +44,33 @@ public class NewTaskActivity extends AppCompatActivity {
         CheckBox dateCheckbox = findViewById(R.id.scheduleCheckbox);
         CheckBox timeCheckbox = findViewById(R.id.addTimeCheckbox);
         RadioButton deadlineRadioButton = findViewById(R.id.deadlineRadioButton);
-        RadioButton sceduleRadioButton = findViewById(R.id.scheduleRadioButton);
+        RadioButton scheduleRadioButton = findViewById(R.id.scheduleRadioButton);
         DatePicker datePicker = findViewById(R.id.taskDatePicker);
         TimePicker timePicker = findViewById(R.id.taskTimePicker);
 
-        deadlineRadioButton.setEnabled(false);
-        sceduleRadioButton.setEnabled(false);
-        timePicker.setEnabled(false);
-        datePicker.setEnabled(false);
-        timeCheckbox.setEnabled(false);
+        if (getIntent().getExtras() != null) {
+            dateCheckbox.setChecked(true);
+            deadlineRadioButton.setEnabled(true);
+            scheduleRadioButton.setEnabled(true);
+            scheduleRadioButton.setChecked(true);
+            SimpleDateFormat numeralDateFormat = new SimpleDateFormat("d MMM yyyy");
+            try {
+                Date date = numeralDateFormat.parse(getIntent().getExtras().get("Date").toString());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                datePicker.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        } else {
+            deadlineRadioButton.setEnabled(false);
+            scheduleRadioButton.setEnabled(false);
+            timePicker.setEnabled(false);
+            datePicker.setEnabled(false);
+            timeCheckbox.setEnabled(false);
+        }
         datePicker.setMinDate(System.currentTimeMillis() - 1000);
 
         // Fill in spinner
@@ -76,7 +96,7 @@ public class NewTaskActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 datePicker.setEnabled(b);
                 deadlineRadioButton.setEnabled(b);
-                sceduleRadioButton.setEnabled(b);
+                scheduleRadioButton.setEnabled(b);
                 if (!b) {
                     timeCheckbox.setChecked(false);
                 }
@@ -117,11 +137,11 @@ public class NewTaskActivity extends AppCompatActivity {
                         String formattedDate = sdf.format(mills);
                         if (deadlineRadioButton.isChecked()) {
                             task.setDeadline(formattedDate);
-                        } else if (sceduleRadioButton.isChecked()) {
+                        } else if (scheduleRadioButton.isChecked()) {
                             task.setScheduledDate(formattedDate);
                         } else {
                             deadlineRadioButton.requestFocus();
-                            sceduleRadioButton.requestFocus();
+                            scheduleRadioButton.requestFocus();
                             success = false;
                         }
                     }

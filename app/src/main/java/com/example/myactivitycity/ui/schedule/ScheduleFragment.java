@@ -1,5 +1,6 @@
 package com.example.myactivitycity.ui.schedule;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,8 +20,10 @@ import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 import com.example.myactivitycity.adapters.ScheduleTasksAdapter;
 import com.example.myactivitycity.databinding.FragmentScheduleBinding;
+import com.example.myactivitycity.ui.activities.NewTaskActivity;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,6 +35,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 public class ScheduleFragment extends Fragment {
@@ -153,6 +157,52 @@ public class ScheduleFragment extends Fragment {
                     }
                 }
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        tasks.addChangeListener(new RealmChangeListener<RealmResults<TodoTask>>() {
+            @Override
+            public void onChange(RealmResults<TodoTask> todoTasks) {
+                scheduledTasks.clear();
+                events.clear();
+                for (TodoTask task : tasks) {
+                    if (!task.getDeadline().equals("")) {
+                        scheduledTasks.add(task);
+                        try {
+                            Date date = dateFormat.parse(task.getDeadline());
+                            long mills = date.getTime();
+                            events.add(new Event(Color.RED, mills, task.getTitle()));
+                            System.out.println("added event: " + task.getTitle());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            System.out.println("failed to add task: " + task.getTitle() + " (Scheduled)");
+                        }
+                    }
+                    if (!task.getScheduledDate().equals("")) {
+                        scheduledTasks.add(task);
+                        try {
+                            Date date = dateFormat.parse(task.getScheduledDate());
+                            long mills = date.getTime();
+                            events.add(new Event(Color.RED, mills, task.getTitle() + " (Deadline)"));
+                            System.out.println("added event: " + task.getTitle());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            System.out.println("failed to add task: " + task.getTitle());
+                        }
+                    }
+                }
+                compactCalendar.addEvents(events);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        FloatingActionButton addTask = root.findViewById(R.id.scheduleFloatingButton);
+        addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NewTaskActivity.class);
+                intent.putExtra("Date", dateTextView.getText().toString());
+                startActivity(intent);
             }
         });
 
