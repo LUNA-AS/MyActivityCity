@@ -17,15 +17,16 @@ import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder> {
-    RealmResults<TodoTask> tasks;
+    ArrayList<TodoTask> tasks;
     Context context;
 
-    public TasksAdapter(Context context, RealmResults<TodoTask> tasksList) {
+    public TasksAdapter(Context context, ArrayList<TodoTask> tasksList) {
         tasks = tasksList;
         this.context = context;
     }

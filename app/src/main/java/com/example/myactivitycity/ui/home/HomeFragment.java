@@ -19,6 +19,9 @@ import com.example.myactivitycity.databinding.FragmentHomeBinding;
 import com.example.myactivitycity.ui.activities.NewTaskActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
@@ -38,12 +41,28 @@ public class HomeFragment extends Fragment {
         Realm.init(getContext());
         Realm realm = Realm.getDefaultInstance();
         RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
+        ArrayList<TodoTask> tasksList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
+
+        String currentDate = sdf.format(System.currentTimeMillis());
+        for (TodoTask task : tasks) {
+            if (task.getDeadline().equals(currentDate)) {
+                tasksList.add(task);
+            } else if (task.getScheduledDate().equals(currentDate)) {
+                tasksList.add(task);
+            } else {
+                if (task.getScheduledDate().equals("") && task.getDeadline().equals("")) {
+                    tasksList.add(task);
+                }
+            }
+        }
+
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
-        TasksAdapter myAdapter = new TasksAdapter(getContext(), tasks);
-        recyclerView.setAdapter(myAdapter);
+        TasksAdapter tasksAdapter = new TasksAdapter(getContext(), tasksList);
+        recyclerView.setAdapter(tasksAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myAdapter.notifyDataSetChanged();
+        tasksAdapter.notifyDataSetChanged();
 
         tasks.addChangeListener(new RealmChangeListener<RealmResults<TodoTask>>() {
             @Override
@@ -52,7 +71,19 @@ public class HomeFragment extends Fragment {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        myAdapter.notifyDataSetChanged();
+                        tasksList.clear();
+                        for (TodoTask task : tasks) {
+                            if (task.getDeadline().equals(currentDate)) {
+                                tasksList.add(task);
+                            } else if (task.getScheduledDate().equals(currentDate)) {
+                                tasksList.add(task);
+                            } else {
+                                if (task.getScheduledDate().equals("") && task.getDeadline().equals("")) {
+                                    tasksList.add(task);
+                                }
+                            }
+                        }
+                        tasksAdapter.notifyDataSetChanged();
                     }
                 });
             }
