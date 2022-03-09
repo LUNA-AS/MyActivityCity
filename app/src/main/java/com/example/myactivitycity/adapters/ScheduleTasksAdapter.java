@@ -16,15 +16,19 @@ import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdapter.ViewHolder> {
-    ArrayList<TodoTask> tasks;
+    RealmResults<TodoTask> tasks;
+    String currentDate;
 
-    public ScheduleTasksAdapter(ArrayList<TodoTask> tasks) {
+    public ScheduleTasksAdapter(RealmResults<TodoTask> tasks, String currentDate) {
         this.tasks = tasks;
+        this.currentDate = currentDate;
     }
 
     @NonNull
@@ -36,33 +40,43 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.descriptionOutput.setText(tasks.get(position).getDescription());
-        holder.titleOutput.setText(tasks.get(position).getTitle());
-        String formattedTime = DateFormat.getDateTimeInstance().format(tasks.get(position).getTimeCreated());
+        holder.descriptionOutput.setText(getFilteredList().get(position).getDescription());
+        holder.titleOutput.setText(getFilteredList().get(position).getTitle());
+        String formattedTime = DateFormat.getDateTimeInstance().format(getFilteredList().get(position).getTimeCreated());
         holder.timeOutput.setText(formattedTime);
-        if (tasks.get(position).isComplete()) {
-            holder.checkBox.setChecked(true);
-            holder.card.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+        if (getFilteredList().get(position).isActive()) {
+            if (getFilteredList().get(position).isComplete()) {
+                holder.checkBox.setChecked(true);
+                holder.card.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+                holder.collectReward.setVisibility(View.VISIBLE);
+                holder.collectReward.setActivated(true);
+            } else {
+                holder.checkBox.setChecked(false);
+                holder.card.setBackgroundResource(R.drawable.round_corner_card);
+                holder.collectReward.setVisibility(View.INVISIBLE);
+                holder.collectReward.setActivated(false);
+            }
         } else {
-            holder.checkBox.setChecked(false);
-            holder.card.setBackgroundResource(R.drawable.round_corner_card);
+            holder.card.setBackgroundResource(R.drawable.inactive_task_card);
+            holder.collectReward.setVisibility(View.INVISIBLE);
+            holder.collectReward.setActivated(false);
         }
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (holder.checkBox.isChecked()) {
-                    if (!tasks.get(position).isComplete()) {
+                    if (!getFilteredList().get(position).isComplete()) {
                         Realm realm = Realm.getDefaultInstance();
                         realm.beginTransaction();
-                        tasks.get(position).setComplete(true);
+                        getFilteredList().get(position).setComplete(true);
                         realm.commitTransaction();
                     }
                 } else {
-                    if (tasks.get(position).isComplete()) {
+                    if (getFilteredList().get(position).isComplete()) {
                         Realm realm = Realm.getDefaultInstance();
                         realm.beginTransaction();
-                        tasks.get(position).setComplete(false);
+                        getFilteredList().get(position).setComplete(false);
                         realm.commitTransaction();
                     }
                 }
@@ -72,22 +86,56 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Realm.init(Realm.getApplicationContext());
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                if (tasks.get(position) != null) {
-                    tasks.get(position).deleteFromRealm();
-                    System.out.println("delete called");
+                int index = -1;
+                for (int i = 0; i < tasks.size(); i++) {
+                    if (tasks.get(i).equals(getFilteredList().get(position))) {
+                        index = i;
+                    }
                 }
-                realm.commitTransaction();
-                notifyDataSetChanged();
+                if (index > -1) {
+                    Realm.init(Realm.getApplicationContext());
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    if (tasks.get(index) != null) {
+                        tasks.get(index).deleteFromRealm();
+                        System.out.println("delete called");
+                    }
+                    realm.commitTransaction();
+                    notifyDataSetChanged();
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return getFilteredList().size();
+    }
+
+    private ArrayList<TodoTask> getFilteredList() {
+        ArrayList<TodoTask> tasksList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
+
+        for (TodoTask task : tasks) {
+            if (task.isActive()) {
+                if (task.getDeadline().equals(currentDate)) {
+                    tasksList.add(task);
+                } else if (task.getScheduledDate().equals(currentDate)) {
+                    tasksList.add(task);
+                } else {
+                    if (task.getScheduledDate().equals("") && task.getDeadline().equals("")) {
+                        tasksList.add(task);
+                    }
+                }
+            }
+        }
+        System.out.println(currentDate);
+        System.out.println(tasksList.size() + " tasks found");
+        return tasksList;
+    }
+
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -97,6 +145,7 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
         CheckBox checkBox;
         FrameLayout card;
         ImageButton deleteButton;
+        ImageButton collectReward;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,6 +156,7 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
             checkBox = itemView.findViewById(R.id.taskCheckBox);
             card = itemView.findViewById(R.id.taskCard);
             deleteButton = itemView.findViewById(R.id.deleteButton);
+            collectReward = itemView.findViewById(R.id.collectRewardButton);
         }
     }
 }

@@ -41,25 +41,10 @@ public class HomeFragment extends Fragment {
         Realm.init(getContext());
         Realm realm = Realm.getDefaultInstance();
         RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
-        ArrayList<TodoTask> tasksList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
-
-        String currentDate = sdf.format(System.currentTimeMillis());
-        for (TodoTask task : tasks) {
-            if (task.getDeadline().equals(currentDate)) {
-                tasksList.add(task);
-            } else if (task.getScheduledDate().equals(currentDate)) {
-                tasksList.add(task);
-            } else {
-                if (task.getScheduledDate().equals("") && task.getDeadline().equals("")) {
-                    tasksList.add(task);
-                }
-            }
-        }
 
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
-        TasksAdapter tasksAdapter = new TasksAdapter(getContext(), tasksList);
+        TasksAdapter tasksAdapter = new TasksAdapter(getContext(), tasks);
         recyclerView.setAdapter(tasksAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         tasksAdapter.notifyDataSetChanged();
@@ -71,18 +56,6 @@ public class HomeFragment extends Fragment {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        tasksList.clear();
-                        for (TodoTask task : tasks) {
-                            if (task.getDeadline().equals(currentDate)) {
-                                tasksList.add(task);
-                            } else if (task.getScheduledDate().equals(currentDate)) {
-                                tasksList.add(task);
-                            } else {
-                                if (task.getScheduledDate().equals("") && task.getDeadline().equals("")) {
-                                    tasksList.add(task);
-                                }
-                            }
-                        }
                         tasksAdapter.notifyDataSetChanged();
                     }
                 });

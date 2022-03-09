@@ -122,10 +122,14 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
             TextView taskNameView = view.findViewById(R.id.childTask);
             FrameLayout holder = view.findViewById(R.id.childHolder);
             taskNameView.setText(taskName);
-            if (!task.isComplete()) {
-                holder.setBackgroundResource(R.drawable.round_corner_card);
-            } else {
-                holder.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+            if(task.isActive()){
+                if (!task.isComplete()) {
+                    holder.setBackgroundResource(R.drawable.round_corner_card);
+                } else {
+                    holder.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+                }
+            }else{
+                holder.setBackgroundResource(R.drawable.inactive_task_card);
             }
         } catch (Exception e) {
             System.out.println("tasks in selected goal could not be loaded");

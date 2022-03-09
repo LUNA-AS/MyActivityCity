@@ -3,6 +3,8 @@ package com.example.myactivitycity.ui.schedule;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,13 +80,12 @@ public class ScheduleFragment extends Fragment {
 
         // Load events
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<TodoTask> tasks = realm.where(TodoTask.class).findAll();
-        ArrayList<TodoTask> scheduledTasks = new ArrayList<>();
-        ArrayList<TodoTask> datesTasks = new ArrayList<>();
+        RealmResults<TodoTask> tasks = realm.where(TodoTask.class).notEqualTo("deadline", "")
+                .or().notEqualTo("scheduledDate", "").findAll();
+
         ArrayList<Event> events = new ArrayList<>();
         for (TodoTask task : tasks) {
             if (!task.getDeadline().equals("")) {
-                scheduledTasks.add(task);
                 try {
                     Date date = dateFormat.parse(task.getDeadline());
                     long mills = date.getTime();
@@ -96,7 +97,6 @@ public class ScheduleFragment extends Fragment {
                 }
             }
             if (!task.getScheduledDate().equals("")) {
-                scheduledTasks.add(task);
                 try {
                     Date date = dateFormat.parse(task.getScheduledDate());
                     long mills = date.getTime();
@@ -111,63 +111,21 @@ public class ScheduleFragment extends Fragment {
         compactCalendar.addEvents(events);
 
         // View events for selected date
-        datesTasks.clear();
-        for (TodoTask task : scheduledTasks) {
-            if (task.getScheduledDate().equals(dateTextView.getText().toString())) {
-                datesTasks.add(task);
-            }
-            if (task.getDeadline().equals(dateTextView.getText().toString())) {
-                datesTasks.add(task);
-            }
-        }
-        ScheduleTasksAdapter adapter = new ScheduleTasksAdapter(datesTasks);
+        final String[] currentDate = {dateTextView.getText().toString()};
+        final ScheduleTasksAdapter[] adapter = {new ScheduleTasksAdapter(tasks, currentDate[0])};
         RecyclerView tasksRecyclerView = root.findViewById(R.id.scheduleRecycler);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        tasksRecyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        tasksRecyclerView.setAdapter(adapter[0]);
+        adapter[0].notifyDataSetChanged();
 
-        // Change tasks displayed on changing selection
-
-        compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
-            @Override
-            public void onDayClick(Date dateClicked) {
-                dateTextView.setText(dateFormat.format(dateClicked));
-                datesTasks.clear();
-                for (TodoTask task : scheduledTasks) {
-                    if (task.getScheduledDate().equals(dateTextView.getText().toString())) {
-                        datesTasks.add(task);
-                    }
-                    if (task.getDeadline().equals(dateTextView.getText().toString())) {
-                        datesTasks.add(task);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onMonthScroll(Date firstDayOfNewMonth) {
-                dateTextView.setText(dateFormat.format(firstDayOfNewMonth));
-                datesTasks.clear();
-                for (TodoTask task : scheduledTasks) {
-                    if (task.getScheduledDate().equals(dateTextView.getText().toString())) {
-                        datesTasks.add(task);
-                    }
-                    if (task.getDeadline().equals(dateTextView.getText().toString())) {
-                        datesTasks.add(task);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });
 
         tasks.addChangeListener(new RealmChangeListener<RealmResults<TodoTask>>() {
             @Override
             public void onChange(RealmResults<TodoTask> todoTasks) {
-                scheduledTasks.clear();
+
                 events.clear();
                 for (TodoTask task : tasks) {
                     if (!task.getDeadline().equals("")) {
-                        scheduledTasks.add(task);
                         try {
                             Date date = dateFormat.parse(task.getDeadline());
                             long mills = date.getTime();
@@ -179,7 +137,6 @@ public class ScheduleFragment extends Fragment {
                         }
                     }
                     if (!task.getScheduledDate().equals("")) {
-                        scheduledTasks.add(task);
                         try {
                             Date date = dateFormat.parse(task.getScheduledDate());
                             long mills = date.getTime();
@@ -192,7 +149,7 @@ public class ScheduleFragment extends Fragment {
                     }
                 }
                 compactCalendar.addEvents(events);
-                adapter.notifyDataSetChanged();
+                adapter[0].notifyDataSetChanged();
             }
         });
 
@@ -203,6 +160,24 @@ public class ScheduleFragment extends Fragment {
                 Intent intent = new Intent(getContext(), NewTaskActivity.class);
                 intent.putExtra("Date", dateTextView.getText().toString());
                 startActivity(intent);
+            }
+        });
+
+        compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                dateTextView.setText(dateFormat.format(dateClicked));
+                currentDate[0] = dateTextView.getText().toString();
+                adapter[0].setCurrentDate(currentDate[0]);
+                adapter[0].notifyDataSetChanged();
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                dateTextView.setText(dateFormat.format(firstDayOfNewMonth));
+                currentDate[0] = dateTextView.getText().toString();
+                adapter[0].setCurrentDate(currentDate[0]);
+                adapter[0].notifyDataSetChanged();
             }
         });
 

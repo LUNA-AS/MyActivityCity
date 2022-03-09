@@ -4,7 +4,7 @@ import io.realm.RealmObject;
 
 public class TodoTask extends RealmObject {
     long timeCreated;
-    boolean isComplete;
+    boolean isComplete, active;
     String deadline, deadlineTime, scheduledDate, scheduledTime;
     String title, description, goal;
 
@@ -39,6 +39,7 @@ public class TodoTask extends RealmObject {
         this.scheduledTime = "";
         this.deadlineTime = "";
         this.description = "";
+        this.active = true;
     }
 
     public TodoTask(String title) {
@@ -91,6 +92,14 @@ public class TodoTask extends RealmObject {
 
     public void setGoal(String goal) {
         this.goal = goal;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
 
