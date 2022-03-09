@@ -112,7 +112,7 @@ public class ScheduleFragment extends Fragment {
 
         // View events for selected date
         final String[] currentDate = {dateTextView.getText().toString()};
-        final ScheduleTasksAdapter[] adapter = {new ScheduleTasksAdapter(tasks, currentDate[0])};
+        final ScheduleTasksAdapter[] adapter = {new ScheduleTasksAdapter(getContext() ,tasks, currentDate[0])};
         RecyclerView tasksRecyclerView = root.findViewById(R.id.scheduleRecycler);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         tasksRecyclerView.setAdapter(adapter[0]);

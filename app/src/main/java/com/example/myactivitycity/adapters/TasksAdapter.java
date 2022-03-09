@@ -1,7 +1,9 @@
 package com.example.myactivitycity.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,10 +127,39 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
             }
         });
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         holder.collectReward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Realm.init(context);
+                builder.setMessage("After collecting your reward you will only be able to view this " +
+                        "task in Goals. Do you want to collect your reward ? ")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                Realm.init(context);
+                                Realm realm = Realm.getDefaultInstance();
+                                realm.beginTransaction();
+
+                                int index = 0;
+                                for (int i = 0; i < tasks.size(); i++) {
+                                    if (tasks.get(i).equals(getFilteredList().get(position))) {
+                                        index = i;
+                                    }
+                                }
+                                tasks.get(index).setActive(false);
+                                //TODO add reward giving logic here
+                                realm.commitTransaction();
+                            }
+                        })
+                        .setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+
+                            }
+                        });
+                /*Realm.init(context);
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 TodoTask taskToUpdate = null;
@@ -147,7 +178,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
                 } else {
                     realm.cancelTransaction();
                     System.out.println("Could not add reward for task: " + getFilteredList().get(position).getTitle());
-                }
+                }*/
+                AlertDialog alert = builder.create();
+                //Setting the title manually
+                alert.setTitle("Collect Reward");
+                alert.show();
             }
         });
     }

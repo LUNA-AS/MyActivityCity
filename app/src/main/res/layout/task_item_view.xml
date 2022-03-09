@@ -67,8 +67,11 @@
             android:id="@+id/collectRewardButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_alignBottom="@+id/deleteButton"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="6dp"
             android:layout_toStartOf="@+id/deleteButton"
+            android:background="#00FFFFFF"
             app:srcCompat="@drawable/ic_baseline_stars_24" />
 
     </RelativeLayout>

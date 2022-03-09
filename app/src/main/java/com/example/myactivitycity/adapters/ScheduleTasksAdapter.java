@@ -1,6 +1,9 @@
 package com.example.myactivitycity.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +22,7 @@ import com.example.myactivitycity.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -25,10 +30,12 @@ import io.realm.RealmResults;
 public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdapter.ViewHolder> {
     RealmResults<TodoTask> tasks;
     String currentDate;
+    Context context;
 
-    public ScheduleTasksAdapter(RealmResults<TodoTask> tasks, String currentDate) {
+    public ScheduleTasksAdapter(Context context, RealmResults<TodoTask> tasks, String currentDate) {
         this.tasks = tasks;
         this.currentDate = currentDate;
+        this.context = context;
     }
 
     @NonNull
@@ -103,6 +110,46 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
                     realm.commitTransaction();
                     notifyDataSetChanged();
                 }
+            }
+        });
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        holder.collectReward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.setMessage("After collecting your reward you will only be able to view this " +
+                        "task in Goals. Do you want to collect your reward ? ")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                Realm.init(context);
+                                Realm realm = Realm.getDefaultInstance();
+                                realm.beginTransaction();
+
+                                int index = 0;
+                                for (int i = 0; i < tasks.size(); i++) {
+                                    if (tasks.get(i).equals(getFilteredList().get(position))) {
+                                        index = i;
+                                    }
+                                }
+                                tasks.get(index).setActive(false);
+                                //TODO add reward giving logic here
+                                realm.commitTransaction();
+                            }
+                        })
+                        .setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                //Setting the title manually
+                alert.setTitle("Collect Reward");
+                alert.show();
             }
         });
     }
