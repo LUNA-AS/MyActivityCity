@@ -1,6 +1,7 @@
 package com.example.myactivitycity.ui.goals;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class GoalsFragment extends Fragment {
         binding = FragmentGoalsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // initializing lists
         goalContents = new HashMap<>();
         hashMapArrayList = new ArrayList<>();

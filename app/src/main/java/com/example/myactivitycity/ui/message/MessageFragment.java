@@ -1,5 +1,6 @@
 package com.example.myactivitycity.ui.message;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,8 @@ public class MessageFragment extends Fragment {
 
         binding = FragmentMessageBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Handle new messages
         Button saveButton = root.findViewById(R.id.saveMessage);

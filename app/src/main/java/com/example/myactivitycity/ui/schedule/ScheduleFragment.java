@@ -1,6 +1,7 @@
 package com.example.myactivitycity.ui.schedule;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -54,6 +55,8 @@ public class ScheduleFragment extends Fragment {
 
         binding = FragmentScheduleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dateFormat = new SimpleDateFormat("d MMM yyyy");
         TextView dateTextView = root.findViewById(R.id.calendarDateTextView);
@@ -112,7 +115,7 @@ public class ScheduleFragment extends Fragment {
 
         // View events for selected date
         final String[] currentDate = {dateTextView.getText().toString()};
-        final ScheduleTasksAdapter[] adapter = {new ScheduleTasksAdapter(getContext() ,tasks, currentDate[0])};
+        final ScheduleTasksAdapter[] adapter = {new ScheduleTasksAdapter(getContext(), tasks, currentDate[0])};
         RecyclerView tasksRecyclerView = root.findViewById(R.id.scheduleRecycler);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         tasksRecyclerView.setAdapter(adapter[0]);

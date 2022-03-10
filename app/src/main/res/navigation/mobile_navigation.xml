@@ -28,4 +28,12 @@
         android:name="com.example.myactivitycity.ui.schedule.ScheduleFragment"
         android:label="@string/schedule"
         tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/nav_city"
+        android:name="com.example.myactivitycity.ui.city.ActivityCityFragment"
+        android:label="My Activity City"
+        tools:layout="@layout/fragment_activity_city" />
+
+
 </navigation>
