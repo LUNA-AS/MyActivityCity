@@ -1,25 +1,19 @@
 package com.example.myactivitycity.Models;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-
-import com.example.myactivitycity.R;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 
-public class Reward {
-    Context context;
+public class Reward extends RealmObject {
+
     String name, description;
-    Drawable drawable;
-    float x, y;
-    private ArrayList<Integer> images;
+    int x, y;
 
-    public Reward(String name, String description, float x, float y) {
-        context = Realm.getApplicationContext();
+    public Reward(String name, String description, int x, int y) {
+
         this.name = name;
         this.description = description;
         this.x = x;
@@ -27,16 +21,9 @@ public class Reward {
     }
 
     public Reward() {
-        context = Realm.getApplicationContext();
-        images = new ArrayList<>();
-        images.add(R.drawable.ic_baseline_location_city_24);
-        images.add(R.drawable.ic_baseline_dashboard_24);
-        images.add(R.drawable.ic_baseline_lightbulb_24);
-        Random random = new Random();
-        int imgIndex = random.nextInt(images.size() - 1);
-        context.getResources().getDrawable(images.get(imgIndex));
-        this.x = 200;
-        this.y = 200;
+        this.name = generateRandomName();
+        this.x = 0;
+        this.y = 0;
     }
 
     public String getName() {
@@ -55,28 +42,31 @@ public class Reward {
         this.description = description;
     }
 
-    public float getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public Drawable getDrawable() {
-        return drawable;
-    }
+    private String generateRandomName() {
+        String[] names = {"building1", "building2", "tree1", "building3", ""};
+        Random random = new Random();
+        int i = random.nextInt(names.length - 1);
 
-    public void setDrawable(Drawable drawable) {
-        this.drawable = drawable;
+        String name = names[i];
+
+        return name;
+
     }
 }
 

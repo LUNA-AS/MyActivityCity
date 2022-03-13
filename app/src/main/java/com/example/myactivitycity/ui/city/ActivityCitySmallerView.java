@@ -1,15 +1,14 @@
 package com.example.myactivitycity.ui.city;
 
-import android.app.AlertDialog;
 import android.content.ClipData;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.method.Touch;
 import android.view.DragEvent;
@@ -38,16 +37,18 @@ import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
-public class ActivityCityFragment extends Fragment {
+public class ActivityCitySmallerView extends Fragment {
     // set width and height for all items
     int width, height;
     RealmResults<Reward> rewards;
     // Hash map to use image ids as keys to get their corresponding reward object through an index
     Hashtable<Integer, Integer> imageToIndexMap;
+    Context context;
 
-    public ActivityCityFragment() {
-        width = 220;
-        height = 220;
+    public ActivityCitySmallerView() {
+        width = 110;
+        height = 110;
+        context = getContext();
     }
 
     public static ActivityCityFragment newInstance() {
@@ -68,13 +69,11 @@ public class ActivityCityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_activity_city, container, false);
-
-
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        View view = inflater.inflate(R.layout.fragment_activity_city_smaller_view, container, false);
 
         // Set the container for the rewards to be placed
-        FrameLayout rewardContainer = view.findViewById(R.id.itemsContainer);
+        FrameLayout rewardContainer = view.findViewById(R.id.itemsContainerSmallerView);
+
 
 
         // Create listeners for dragging and dropping items
@@ -132,8 +131,6 @@ public class ActivityCityFragment extends Fragment {
                 return true;
             }
         };
-
-
         View.OnClickListener viewDescriptionListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,18 +150,36 @@ public class ActivityCityFragment extends Fragment {
             ImageView imageView = new ImageView(getContext());
             imageView.setImageResource(RewardImageMapper.getImageByName(rewards.get(i).getName()));
             final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-            params.setMargins(rewards.get(i).getX(), rewards.get(i).getY(), 0, 0);
+            params.setMargins(rewards.get(i).getX() / 2, rewards.get(i).getY() , 0, 0);
             imageView.setLayoutParams(params);
             imageView.setId(View.generateViewId());
             rewardContainer.addView(imageView);
             imageToIndexMap.put(imageView.getId(), i);
-            imageView.setOnLongClickListener(longClickListener);
+            System.out.println("temp: ");
+            System.out.println(imageToIndexMap
+            );
             imageView.setOnClickListener(viewDescriptionListener);
         }
 
+        rewards.addChangeListener(new RealmChangeListener<RealmResults<Reward>>() {
+            @Override
+            public void onChange(RealmResults<Reward> rewards) {
+                rewardContainer.removeAllViews();
+                imageToIndexMap.clear();
+                for (int i = 0; i < rewards.size(); i++) {
+                    ImageView imageView = new ImageView(getActivity());
+                    imageView.setImageResource(RewardImageMapper.getImageByName(rewards.get(i).getName()));
+                    final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+                    params.setMargins(rewards.get(i).getX() / 2, rewards.get(i).getY() , 0, 0);
+                    imageView.setLayoutParams(params);
+                    imageView.setId(View.generateViewId());
+                    rewardContainer.addView(imageView);
+                    imageToIndexMap.put(imageView.getId(), i);
+                    imageView.setOnClickListener(viewDescriptionListener);
+                }
+            }
+        });
 
-        view.setOnDragListener(dragListener);
         return view;
     }
-
 }

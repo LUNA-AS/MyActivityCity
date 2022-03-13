@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.city.ActivityCityFragment">
+
+    <TextView
+        android:id="@+id/navigateToCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity City"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darker_green"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="80dp"/>
+    <FrameLayout
+        android:id="@+id/itemsContainerSmallerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp" >
+
+    </FrameLayout>
+
+</FrameLayout>

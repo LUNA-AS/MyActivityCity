@@ -8,6 +8,8 @@ import android.view.Menu;
 import com.example.myactivitycity.ui.activities.NewTaskActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,6 +21,7 @@ import com.example.myactivitycity.databinding.ActivityNavigationDrawerBinding;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
+    public static String current = "";
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityNavigationDrawerBinding binding;
 
@@ -57,4 +60,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    public static String getCurrent() {
+        return current;
+    }
 }

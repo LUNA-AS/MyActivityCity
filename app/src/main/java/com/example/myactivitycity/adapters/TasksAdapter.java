@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myactivitycity.Models.Reward;
 import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 
@@ -148,7 +149,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
                                     }
                                 }
                                 tasks.get(index).setActive(false);
-                                //TODO add reward giving logic here
+
+
+                                Reward reward = realm.createObject(Reward.class);
+                                reward.setDescription("Completed task: " + tasks.get(index).getTitle());
+
                                 realm.commitTransaction();
                             }
                         })
@@ -159,26 +164,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
 
                             }
                         });
-                /*Realm.init(context);
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                TodoTask taskToUpdate = null;
-                int index = 0;
-                for (int i = 0; i < tasks.size(); i++) {
-                    if (getFilteredList().get(position).equals(tasks.get(i))) {
-                        taskToUpdate = tasks.get(i);
-                        index = i;
-                    }
-                }
-                if (taskToUpdate != null) {
-                    tasks.get(index).setActive(false);
-                    //TODO Add a reward object to DB
-                    realm.commitTransaction();
-                    System.out.println("Added reward");
-                } else {
-                    realm.cancelTransaction();
-                    System.out.println("Could not add reward for task: " + getFilteredList().get(position).getTitle());
-                }*/
+
                 AlertDialog alert = builder.create();
                 //Setting the title manually
                 alert.setTitle("Collect Reward");
@@ -222,7 +208,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
         String currentDate = sdf.format(System.currentTimeMillis());
         for (TodoTask task : tasks) {
             if (task.isActive()) {
-                if (task.getDeadline().equals(currentDate)) {
+                if (!task.getDeadline().equals("")) {
                     tasksList.add(task);
                 } else if (task.getScheduledDate().equals(currentDate)) {
                     tasksList.add(task);

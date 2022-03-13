@@ -30,8 +30,8 @@
             android:id="@+id/scheduleRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/scheduleCalendarView"
-            android:layout_marginTop="10dp" />
+            android:layout_below="@+id/textView6"
+            android:layout_marginTop="5dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/scheduleFloatingButton"
@@ -39,12 +39,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_baseline_add_24"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin" />
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_baseline_add_24" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/calendarToolbar"
@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="0dp"
                     android:backgroundTint="@color/darker_green"
                     android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
                     app:tint="@color/white" />
@@ -90,6 +91,21 @@
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scheduleCalendarView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/darker_green"
+            android:padding="10dp"
+            android:text="Tasks"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

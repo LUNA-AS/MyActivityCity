@@ -125,7 +125,7 @@ public class ScheduleFragment extends Fragment {
         tasks.addChangeListener(new RealmChangeListener<RealmResults<TodoTask>>() {
             @Override
             public void onChange(RealmResults<TodoTask> todoTasks) {
-
+                compactCalendar.removeAllEvents();
                 events.clear();
                 for (TodoTask task : tasks) {
                     if (!task.getDeadline().equals("")) {

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myactivitycity.Models.Reward;
 import com.example.myactivitycity.Models.TodoTask;
 import com.example.myactivitycity.R;
 
@@ -47,116 +48,135 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.descriptionOutput.setText(getFilteredList().get(position).getDescription());
-        holder.titleOutput.setText(getFilteredList().get(position).getTitle());
-        String formattedTime = DateFormat.getDateTimeInstance().format(getFilteredList().get(position).getTimeCreated());
-        holder.timeOutput.setText(formattedTime);
-        if (getFilteredList().get(position).isActive()) {
-            if (getFilteredList().get(position).isComplete()) {
-                holder.checkBox.setChecked(true);
-                holder.card.setBackgroundResource(R.drawable.round_corner_card_filled_in);
-                holder.collectReward.setVisibility(View.VISIBLE);
-                holder.collectReward.setActivated(true);
+        try {
+            holder.descriptionOutput.setText(getFilteredList().get(position).getDescription());
+            holder.titleOutput.setText(getFilteredList().get(position).getTitle());
+            String formattedTime = DateFormat.getDateTimeInstance().format(getFilteredList().get(position).getTimeCreated());
+            holder.timeOutput.setText(formattedTime);
+            if (getFilteredList().get(position).isActive()) {
+                if (getFilteredList().get(position).isComplete()) {
+                    holder.checkBox.setChecked(true);
+                    holder.card.setBackgroundResource(R.drawable.round_corner_card_filled_in);
+                    holder.collectReward.setVisibility(View.VISIBLE);
+                    holder.collectReward.setActivated(true);
+                } else {
+                    holder.checkBox.setChecked(false);
+                    holder.card.setBackgroundResource(R.drawable.round_corner_card);
+                    holder.collectReward.setVisibility(View.INVISIBLE);
+                    holder.collectReward.setActivated(false);
+                }
             } else {
-                holder.checkBox.setChecked(false);
-                holder.card.setBackgroundResource(R.drawable.round_corner_card);
+                holder.card.setBackgroundResource(R.drawable.inactive_task_card);
                 holder.collectReward.setVisibility(View.INVISIBLE);
                 holder.collectReward.setActivated(false);
             }
-        } else {
-            holder.card.setBackgroundResource(R.drawable.inactive_task_card);
+
+            holder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (holder.checkBox.isChecked()) {
+                        if (!getFilteredList().get(position).isComplete()) {
+                            Realm realm = Realm.getDefaultInstance();
+                            realm.beginTransaction();
+                            getFilteredList().get(position).setComplete(true);
+                            realm.commitTransaction();
+                        }
+                    } else {
+                        if (getFilteredList().get(position).isComplete()) {
+                            Realm realm = Realm.getDefaultInstance();
+                            realm.beginTransaction();
+                            getFilteredList().get(position).setComplete(false);
+                            realm.commitTransaction();
+                        }
+                    }
+                }
+            });
+
+            holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int index = -1;
+                    for (int i = 0; i < tasks.size(); i++) {
+                        if (tasks.get(i).equals(getFilteredList().get(position))) {
+                            index = i;
+                        }
+                    }
+                    if (index > -1) {
+                        Realm.init(Realm.getApplicationContext());
+                        Realm realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        if (tasks.get(index) != null) {
+                            tasks.get(index).deleteFromRealm();
+                            System.out.println("delete called");
+                        }
+                        realm.commitTransaction();
+                        notifyDataSetChanged();
+                    }
+                }
+            });
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            holder.collectReward.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    builder.setMessage("After collecting your reward you will only be able to view this " +
+                            "task in Goals. Do you want to collect your reward ? ")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    Realm.init(context);
+                                    Realm realm = Realm.getDefaultInstance();
+                                    realm.beginTransaction();
+
+                                    int index = 0;
+                                    for (int i = 0; i < tasks.size(); i++) {
+                                        if (tasks.get(i).equals(getFilteredList().get(position))) {
+                                            index = i;
+                                        }
+                                    }
+                                    tasks.get(index).setActive(false);
+
+                                    Reward reward = realm.createObject(Reward.class);
+                                    reward.setDescription("Completed task: " + tasks.get(index).getTitle());
+
+                                    realm.commitTransaction();
+                                }
+                            })
+                            .setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Action for 'NO' Button
+                                    dialog.cancel();
+
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    //Setting the title manually
+                    alert.setTitle("Collect Reward");
+                    alert.show();
+                }
+            });
+        } catch (Exception e) {
+            holder.checkBox.setVisibility(View.INVISIBLE);
+            holder.deleteButton.setVisibility(View.INVISIBLE);
             holder.collectReward.setVisibility(View.INVISIBLE);
-            holder.collectReward.setActivated(false);
+            holder.descriptionOutput.setText("No tasks scheduled for the selected date");
+            holder.titleOutput.setText("");
+            holder.timeOutput.setText("");
+            holder.card.setBackgroundResource(R.drawable.rounded_corners);
+
         }
 
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.checkBox.isChecked()) {
-                    if (!getFilteredList().get(position).isComplete()) {
-                        Realm realm = Realm.getDefaultInstance();
-                        realm.beginTransaction();
-                        getFilteredList().get(position).setComplete(true);
-                        realm.commitTransaction();
-                    }
-                } else {
-                    if (getFilteredList().get(position).isComplete()) {
-                        Realm realm = Realm.getDefaultInstance();
-                        realm.beginTransaction();
-                        getFilteredList().get(position).setComplete(false);
-                        realm.commitTransaction();
-                    }
-                }
-            }
-        });
-
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int index = -1;
-                for (int i = 0; i < tasks.size(); i++) {
-                    if (tasks.get(i).equals(getFilteredList().get(position))) {
-                        index = i;
-                    }
-                }
-                if (index > -1) {
-                    Realm.init(Realm.getApplicationContext());
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
-                    if (tasks.get(index) != null) {
-                        tasks.get(index).deleteFromRealm();
-                        System.out.println("delete called");
-                    }
-                    realm.commitTransaction();
-                    notifyDataSetChanged();
-                }
-            }
-        });
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        holder.collectReward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                builder.setMessage("After collecting your reward you will only be able to view this " +
-                        "task in Goals. Do you want to collect your reward ? ")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                Realm.init(context);
-                                Realm realm = Realm.getDefaultInstance();
-                                realm.beginTransaction();
-
-                                int index = 0;
-                                for (int i = 0; i < tasks.size(); i++) {
-                                    if (tasks.get(i).equals(getFilteredList().get(position))) {
-                                        index = i;
-                                    }
-                                }
-                                tasks.get(index).setActive(false);
-                                //TODO add reward giving logic here
-                                realm.commitTransaction();
-                            }
-                        })
-                        .setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //  Action for 'NO' Button
-                                dialog.cancel();
-
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                //Setting the title manually
-                alert.setTitle("Collect Reward");
-                alert.show();
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return getFilteredList().size();
+        int count = getFilteredList().size();
+        if (count < 1) {
+            count = 1;
+        }
+        return count;
     }
 
     private ArrayList<TodoTask> getFilteredList() {

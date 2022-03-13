@@ -72,12 +72,19 @@ public class GoalsFragment extends Fragment {
         goals.addChangeListener(new RealmChangeListener<RealmResults<Goal>>() {
             @Override
             public void onChange(RealmResults<Goal> goals) {
+                hashMapArrayList.clear();
+                for(Goal goal: goals){
+                    tasks = realm.where(TodoTask.class).equalTo("goal", goal.getName()).findAll();
+                    goalContents.put(goal.getName(),tasks);
+                    hashMapArrayList.add(goalContents);
+                }
                 goalsAdapter.notifyDataSetChanged();
             }
         });
         tasks.addChangeListener(new RealmChangeListener<RealmResults<TodoTask>>() {
             @Override
             public void onChange(RealmResults<TodoTask> todoTasks) {
+
                 goalsAdapter.notifyDataSetChanged();
             }
         });

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.2365" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.193" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.193" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
@@ -21,12 +22,13 @@
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/app_bar_navigation_drawer.xml" value="0.136" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/content_navigation_drawer.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_activity_city.xml" value="0.11200000000000002" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_activity_city.xml" value="0.1" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_activity_city_smaller_view.xml" value="0.25" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_gallery.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_goals.xml" value="0.176" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_home.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_home.xml" value="0.144" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_message.xml" value="0.136" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_schedule.xml" value="0.176" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_schedule.xml" value="0.264" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_slideshow.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/goal_item.xml" value="0.264" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/goal_spinner_item.xml" value="0.20098846787479407" />
@@ -34,12 +36,14 @@
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/menu_content.xml" value="0.2" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/menu_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/menu_toolbar.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/nav_header_navigation_drawer.xml" value="0.264" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/nav_header_navigation_drawer.xml" value="0.176" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_item_view.xml" value="0.4" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_view.xml" value="0.536" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/activity_main_drawer.xml" value="0.4" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/menu.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/navigation_drawer.xml" value="0.264" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2365" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2365" />
       </map>
     </option>
   </component>
