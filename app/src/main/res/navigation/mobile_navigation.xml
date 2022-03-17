@@ -36,6 +36,10 @@
         android:name="com.example.myactivitycity.ui.city.ActivityCityFragment"
         android:label="My Activity City"
         tools:layout="@layout/fragment_activity_city" />
-
+    <fragment
+        android:id="@+id/nav_user_guide"
+        android:name="com.example.myactivitycity.ui.guide.UserGuideFragment"
+        android:label="User Guide"
+        tools:layout="@layout/fragment_user_guide" />
 
 </navigation>

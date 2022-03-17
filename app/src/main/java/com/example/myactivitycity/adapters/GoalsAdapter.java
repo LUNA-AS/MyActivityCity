@@ -98,7 +98,7 @@ public class GoalsAdapter extends BaseExpandableListAdapter {
             goalNameView.setText(goal);
             completionText.setText(goals.get(i).getCompletionPercentage());
             if (goals.get(i).getCompletionPercentageFloat() > 50) {
-                view.setBackgroundResource(R.color.bright_green);
+                view.setBackgroundResource(R.color.darker_green);
             }
 
         } catch (Exception e) {

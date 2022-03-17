@@ -17,4 +17,39 @@
     <string name="previous"><![CDATA[<]]></string>
     <string name="next"><![CDATA[>]]></string>
     <string name="schedule">Schedule</string>
+    <string name="long_string">Lorem Ipsum
+"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate metus et nunc vehicula, ac fringilla lorem aliquam. Quisque luctus fringilla diam ut facilisis. In turpis lorem, bibendum eget viverra quis, aliquet quis nisl. Mauris enim lorem, facilisis eget fringilla at, porttitor ut libero. Etiam congue lobortis varius. Curabitur vitae purus felis. Proin rutrum eros eget risus ullamcorper, et sollicitudin nunc tempus. Donec non vulputate nulla. Fusce vel eros quis enim ullamcorper posuere at ac tortor. Vivamus sed quam mauris. Nam id ligula accumsan, blandit risus a, aliquet eros. Morbi rhoncus feugiat odio a cursus.
+
+Etiam ullamcorper commodo augue, in mollis felis bibendum ut. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec at tempus lectus. Cras facilisis risus varius porta pharetra. Ut metus arcu, dignissim et semper ac, pretium quis dui. Proin at scelerisque leo, a fermentum risus. Ut suscipit arcu ac urna mollis vestibulum.
+
+Donec molestie vitae massa nec consequat. Etiam a dapibus orci. Aliquam quis est interdum tellus lobortis vehicula. In augue ex, consequat at elit non, sodales dictum ipsum. Cras fringilla tincidunt molestie. Duis vitae maximus arcu. Morbi lobortis leo vitae lorem eleifend cursus. Aliquam mattis eros at elit facilisis, ut sodales lacus semper. In hac habitasse platea dictumst. In hac habitasse platea dictumst. Vivamus eget eleifend dolor.
+
+Etiam ut vestibulum risus, a iaculis nibh. Fusce ut consequat quam. Praesent tincidunt tristique augue et commodo. Phasellus semper convallis nulla in tincidunt. Nullam at nisl in neque hendrerit volutpat. Sed interdum lectus velit, et congue elit suscipit ut. Curabitur sit amet odio leo. Nunc placerat eget urna nec dictum. Integer porttitor, dolor et aliquet viverra, ante ante interdum odio, quis pharetra urna leo at augue. Quisque hendrerit enim a tortor hendrerit, ultricies pretium quam interdum. Nullam tincidunt sollicitudin neque mattis maximus. Mauris pellentesque nulla et consequat egestas. Fusce convallis bibendum laoreet. Cras ultricies tristique dui. Aliquam eget pharetra diam.
+
+Duis elementum, ante ac semper venenatis, est elit lobortis nunc, vel aliquam tellus arcu at lectus. Duis ac tortor felis. Phasellus aliquet nec odio sit amet dictum. In malesuada justo sit amet dolor dignissim, a pretium tortor mattis. Nam imperdiet dignissim velit, ut rutrum neque facilisis ut. Nullam in eleifend leo. Duis eu pellentesque urna. Quisque vehicula ex nec nulla faucibus vestibulum. Donec vehicula non odio sit amet lacinia. Sed ultricies mauris eu enim luctus, et varius elit gravida. Fusce pulvinar in nibh vel consequat. Donec vehicula massa ac convallis posuere.</string>
+    <string name="home_description">
+        On the home page you can see the current state of your activity city and view tasks scheduled for the current date, tasks with deadlines in the future, and unscheduled tasks.
+        Checking the box next to tasks sets them as complete. Once a task is completed, a reward can be collected by clicking the button with the star. tasks can also be deleted by clicking the "X" next to them.
+        The button with the "+" takes to the new task page where you can create a new task.
+    </string>
+    <string name="goal_description">
+        Tasks are categorized and grouped based on what goals they contribute to. When you first open the app you will be able to see one goal only named "default" to which uncategorized tasks go to. you can create your
+        own goals by clicking the button with "+" sign and filling in a name and an optional description.
+    </string>
+    <string name="new_task_description">
+        New tasks can be created from the Home page or the Scheduled page by clicking the "+" button. Tasks require a name and can have a description, scheduled date and time or deadline.
+    </string>
+    <string name="scheduled_description">
+        The schedule page shows a calendar with the dates with tasks or deadline marked. Clicking on those dates shows the scheduled tasks at the bottom of the calendar. You can select a date on the calendar
+        and click the "+" button to add a task to the selected date.
+    </string>
+    <string name="self_message_description">
+        Self Message page is an area for you to leave motivational messages or reflections to yourself to view later when you need them. you can view hints and ideas on what to write about at the top of the text input box.
+    </string>
+    <string name="activity_city_description">
+        The Activity City page is where you view and move your rewards around to form your own city. Buildings will appear at the top left corner of the screen once you collect a reward from a task.
+        Those can be dragged and dropped. Clicking on the building shows the name of the task completed to obtain it.
+    </string>
 </resources>

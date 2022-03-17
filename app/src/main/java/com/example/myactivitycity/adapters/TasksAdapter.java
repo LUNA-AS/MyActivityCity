@@ -102,33 +102,49 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.MyViewHolder
             }
         });
 
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Realm.init(context);
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                TodoTask taskToUpdate = null;
-                int index = 0;
-                for (int i = 0; i < tasks.size(); i++) {
-                    if (getFilteredList().get(position).equals(tasks.get(i))) {
-                        taskToUpdate = tasks.get(i);
-                        index = i;
-                    }
-                }
-                if (taskToUpdate != null) {
-                    tasks.get(index).deleteFromRealm();
-                    realm.commitTransaction();
-                    System.out.println("Deleted task");
-                } else {
-                    realm.cancelTransaction();
-                    System.out.println("Could not delete task: " + getFilteredList().get(position).getTitle());
-                }
-                notifyDataSetChanged();
+
+                builder.setMessage("Are you sure you want to delete this task? ")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                int index = -1;
+                                for (int i = 0; i < tasks.size(); i++) {
+                                    if (tasks.get(i).equals(getFilteredList().get(position))) {
+                                        index = i;
+                                    }
+                                }
+                                if (index > -1) {
+                                    Realm.init(Realm.getApplicationContext());
+                                    Realm realm = Realm.getDefaultInstance();
+                                    realm.beginTransaction();
+                                    if (tasks.get(index) != null) {
+                                        tasks.get(index).deleteFromRealm();
+                                        System.out.println("delete called");
+                                    }
+                                    realm.commitTransaction();
+                                    notifyDataSetChanged();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                //Setting the title manually
+                alert.setTitle("Delete Task");
+                alert.show();
             }
         });
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         holder.collectReward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

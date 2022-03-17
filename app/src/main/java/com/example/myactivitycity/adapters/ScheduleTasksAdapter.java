@@ -51,8 +51,14 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
         try {
             holder.descriptionOutput.setText(getFilteredList().get(position).getDescription());
             holder.titleOutput.setText(getFilteredList().get(position).getTitle());
-            String formattedTime = DateFormat.getDateTimeInstance().format(getFilteredList().get(position).getTimeCreated());
-            holder.timeOutput.setText(formattedTime);
+            if (!getFilteredList().get(position).getDeadline().equals("")) {
+                holder.timeOutput.setText("Deadline: " + getFilteredList().get(position).getDeadline());
+            } else if (!getFilteredList().get(position).getScheduledDate().equals("")) {
+                holder.timeOutput.setText("Scheduled: " + getFilteredList().get(position).getScheduledDate());
+            } else {
+                String formattedTime = DateFormat.getDateTimeInstance().format(getFilteredList().get(position).getTimeCreated());
+                holder.timeOutput.setText("Created on: " + formattedTime);
+            }
             if (getFilteredList().get(position).isActive()) {
                 if (getFilteredList().get(position).isComplete()) {
                     holder.checkBox.setChecked(true);
@@ -92,31 +98,52 @@ public class ScheduleTasksAdapter extends RecyclerView.Adapter<ScheduleTasksAdap
                 }
             });
 
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.deleteButton.setVisibility(View.VISIBLE);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int index = -1;
-                    for (int i = 0; i < tasks.size(); i++) {
-                        if (tasks.get(i).equals(getFilteredList().get(position))) {
-                            index = i;
-                        }
-                    }
-                    if (index > -1) {
-                        Realm.init(Realm.getApplicationContext());
-                        Realm realm = Realm.getDefaultInstance();
-                        realm.beginTransaction();
-                        if (tasks.get(index) != null) {
-                            tasks.get(index).deleteFromRealm();
-                            System.out.println("delete called");
-                        }
-                        realm.commitTransaction();
-                        notifyDataSetChanged();
-                    }
+
+                    builder.setMessage("Are you sure you want to delete this task? ")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    int index = -1;
+                                    for (int i = 0; i < tasks.size(); i++) {
+                                        if (tasks.get(i).equals(getFilteredList().get(position))) {
+                                            index = i;
+                                        }
+                                    }
+                                    if (index > -1) {
+                                        Realm.init(Realm.getApplicationContext());
+                                        Realm realm = Realm.getDefaultInstance();
+                                        realm.beginTransaction();
+                                        if (tasks.get(index) != null) {
+                                            tasks.get(index).deleteFromRealm();
+                                            System.out.println("delete called");
+                                        }
+                                        realm.commitTransaction();
+                                        notifyDataSetChanged();
+                                    }
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Action for 'NO' Button
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    //Setting the title manually
+                    alert.setTitle("Delete Task");
+                    alert.show();
                 }
             });
 
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             holder.collectReward.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

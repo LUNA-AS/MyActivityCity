@@ -5,10 +5,128 @@
     android:layout_height="match_parent"
     tools:context=".ui.guide.UserGuideFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/guideTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/darker_green"
+                android:padding="5dp"
+                android:text="Home Page"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="@string/home_description"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/darker_green"
+                android:padding="5dp"
+                android:text="Setting up Goals"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="@string/goal_description"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/darker_green"
+                android:padding="5dp"
+                android:text="Creating Tasks"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="@string/new_task_description"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/darker_green"
+                android:padding="5dp"
+                android:text="The Schedule page"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="@string/scheduled_description"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/darker_green"
+                android:padding="5dp"
+                android:text="Activity City"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="@string/activity_city_description"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/darker_green"
+                android:padding="5dp"
+                android:text="Message to Self"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:text="@string/self_message_description"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>

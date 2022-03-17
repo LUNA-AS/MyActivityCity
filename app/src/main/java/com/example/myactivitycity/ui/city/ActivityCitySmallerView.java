@@ -75,7 +75,6 @@ public class ActivityCitySmallerView extends Fragment {
         FrameLayout rewardContainer = view.findViewById(R.id.itemsContainerSmallerView);
 
 
-
         // Create listeners for dragging and dropping items
         View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
             @Override
@@ -150,7 +149,7 @@ public class ActivityCitySmallerView extends Fragment {
             ImageView imageView = new ImageView(getContext());
             imageView.setImageResource(RewardImageMapper.getImageByName(rewards.get(i).getName()));
             final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-            params.setMargins(rewards.get(i).getX() / 2, rewards.get(i).getY() , 0, 0);
+            params.setMargins(rewards.get(i).getX() / 2, rewards.get(i).getY(), 0, 0);
             imageView.setLayoutParams(params);
             imageView.setId(View.generateViewId());
             rewardContainer.addView(imageView);
@@ -164,18 +163,25 @@ public class ActivityCitySmallerView extends Fragment {
         rewards.addChangeListener(new RealmChangeListener<RealmResults<Reward>>() {
             @Override
             public void onChange(RealmResults<Reward> rewards) {
-                rewardContainer.removeAllViews();
-                imageToIndexMap.clear();
-                for (int i = 0; i < rewards.size(); i++) {
-                    ImageView imageView = new ImageView(getActivity());
-                    imageView.setImageResource(RewardImageMapper.getImageByName(rewards.get(i).getName()));
-                    final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-                    params.setMargins(rewards.get(i).getX() / 2, rewards.get(i).getY() , 0, 0);
-                    imageView.setLayoutParams(params);
-                    imageView.setId(View.generateViewId());
-                    rewardContainer.addView(imageView);
-                    imageToIndexMap.put(imageView.getId(), i);
-                    imageView.setOnClickListener(viewDescriptionListener);
+                if (rewards.size() > imageToIndexMap.size()) {
+                    rewardContainer.removeAllViews();
+                    imageToIndexMap.clear();
+                    for (int i = 0; i < rewards.size(); i++) {
+                        try {
+                            ImageView imageView = new ImageView(getContext());
+                            imageView.setImageResource(RewardImageMapper.getImageByName(rewards.get(i).getName()));
+                            final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+                            params.setMargins(rewards.get(i).getX() / 2, rewards.get(i).getY(), 0, 0);
+                            imageView.setLayoutParams(params);
+                            imageView.setId(View.generateViewId());
+                            rewardContainer.addView(imageView);
+                            imageToIndexMap.put(imageView.getId(), i);
+                            imageView.setOnClickListener(viewDescriptionListener);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            break;
+                        }
+                    }
                 }
             }
         });

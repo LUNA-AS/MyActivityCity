@@ -30,6 +30,7 @@
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_message.xml" value="0.136" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_schedule.xml" value="0.264" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_slideshow.xml" value="0.11354166666666667" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/fragment_user_guide.xml" value="0.2" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/goal_item.xml" value="0.264" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/goal_spinner_item.xml" value="0.20098846787479407" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/goal_task_item.xml" value="0.4" />
@@ -37,7 +38,7 @@
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/menu_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/menu_toolbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/nav_header_navigation_drawer.xml" value="0.176" />
-        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_item_view.xml" value="0.4" />
+        <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_item_view.xml" value="0.2" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/layout/task_view.xml" value="0.536" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/activity_main_drawer.xml" value="0.4" />
         <entry key="..\:/Users/Luna/MyActivityCity/app/src/main/res/menu/menu.xml" value="0.16799999999999998" />
